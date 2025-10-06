@@ -20,14 +20,14 @@ export default function ContactSection() {
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-4 mb-12 ">
             <a 
-              href="mailto:your.email@example.com"
+              href="mailto:michaelhanna50@gmail.com"
               className="group"
             >
               <Button 
                 size="lg"
-                className="bg-white text-[#2C2C2C] hover:bg-white/90 px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                className=" border-2 border-white text-white hover:bg-white/90 hover:text-[#2C2C2C] px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <Mail className="w-5 h-5 mr-3 group-hover:animate-bounce" />
                 Email Me
@@ -42,7 +42,7 @@ export default function ContactSection() {
             >
               <Button 
                 size="lg"
-                className="bg-white text-[#2C2C2C] hover:bg-white/90 px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                className=" border-2 border-white text-white hover:bg-white/90 hover:text-[#2C2C2C] px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <Linkedin className="w-5 h-5 mr-3 group-hover:animate-bounce" />
                 LinkedIn
@@ -57,7 +57,7 @@ export default function ContactSection() {
             >
               <Button 
                 size="lg"
-                className="bg-white text-[#2C2C2C] hover:bg-white/90 px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                className=" border-2 border-white text-white hover:bg-white/90 hover:text-[#2C2C2C] px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <Github className="w-5 h-5 mr-3 group-hover:animate-bounce" />
                 GitHub
@@ -91,7 +91,7 @@ export default function ContactSection() {
         transition={{ delay: 0.5, duration: 0.8 }}
         className="max-w-4xl mx-auto mt-20 pt-12 border-t border-white/20 text-center text-white/80 text-sm"
       >
-        <p>© 2024 Your Name. Designed and built with care.</p>
+        <p>© 2025 Michael Hanna. Designed and built with care.</p>
       </motion.div>
     </section>
   );
