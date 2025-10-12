@@ -1,118 +1,231 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, ArrowRight, TrendingUp, Zap, Users, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const StatCard = ({ icon: Icon, value, label, delay }) => (
+const detailVariants = {
+  open: { height: 'auto', opacity: 1, transition: { duration: 0.35, ease: 'easeOut' } },
+  collapsed: { height: 0, opacity: 0, transition: { duration: 0.25, ease: 'easeIn' } },
+};
+
+const StatCard = ({ heading, subtext, detailBody, delay, isOpen, onToggle }) => (
   <motion.div
     initial={{ opacity: 0, x: 20 }}
     animate={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.5, delay: delay }}
-    className="text-right"
+    transition={{ type: 'spring', stiffness: 120, damping: 18, delay }}
+    className="text-right space-y-2 max-w-xs"
   >
-    <div className="flex items-center justify-end gap-3">
-      <p className="text-5xl font-bold text-[#2C2C2C]">{value}</p>
-      <div className="w-12 h-12 bg-white/50 rounded-lg flex items-center justify-center">
-        <Icon className="w-6 h-6 text-[#A8B8A0]" />
+    <button
+      type="button"
+      onClick={onToggle}
+      className="relative w-full text-right group pb-2"
+    >
+      <div className="flex items-end justify-end gap-3">
+        <ChevronDown
+          className={`w-4 h-4 text-primary-dark transition-transform duration-300 -mt-1 ${isOpen ? 'rotate-180' : ''}`}
+        />
+        <div className="space-y-1">
+          <p className="font-accent uppercase text-5xl text-black">{heading}</p>
+          <p className="font-serifalt text-lg text-neutral-dark">{subtext}</p>
+        </div>
       </div>
-    </div>
-    <p className="text-md text-[#6B6B6B] mt-1">{label}</p>
+    </button>
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          key="detail"
+          variants={detailVariants}
+          initial="collapsed"
+          animate="open"
+          exit="collapsed"
+          className="mt-2 overflow-hidden rounded-lg border border-secondary-dark/40 px-3 text-left shadow max-w-[220px] ml-auto bg-transparent"
+        >
+          <motion.p
+            initial={{ y: 8, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 8, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="py-3 text-sm font-serifalt text-black"
+          >
+            {detailBody}
+          </motion.p>
+        </motion.div>
+      )}
+    </AnimatePresence>
   </motion.div>
 );
 
-const ResultCard = ({ icon: Icon, text, delay }) => (
+const ResultCard = ({ heading, subtext, delay, showDivider = false }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: delay }}
-    className="flex items-center gap-3 text-[#5C5C5C]"
+    className={`flex h-full w-full flex-col items-start justify-end ${
+      showDivider
+        ? 'border-t border-primary-dark/40 pt-4 md:border-t-0 md:pt-0 md:border-l md:border-primary-dark/40 md:pl-5 max-w-[1200px]'
+        : ''
+    }`}
   >
-    <Icon className="w-5 h-5 text-[#C97064]" />
-    <span className="font-medium">{text}</span>
+    <div className="w-full leading-tight space-y-0.5 text-left">
+      <p className="font-accent uppercase text-xl md:text-xl text-neutral scale-y-100">{heading}</p>
+      <p className="font-serifalt text-md text-neutral line-clamp-2">{subtext}</p>
+    </div>
   </motion.div>
 );
 
 export default function HeroSection() {
+  const [openCard, setOpenCard] = useState(null);
+
   return (
-    <section className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-[#FAF8F3] via-[#E8DCC4] to-[#FAF8F3] p-6 lg:p-12 overflow-hidden">
-      
+    <section className="min-h-screen relative flex items-start justify-center bg-gradient-to-br from-neutral-light via-secondary-light to-primary-light min-h-screen px-6 lg:px-12 pt-16 lg:pt-20 pb-6 lg:pb-12 overflow-hidden">
       {/* Centered, Overlapping Image */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-[50%] max-w-2xl hidden lg:block z-10"
+        className="absolute top-0 -translate-x-1/2 hidden lg:block z-10"
       >
-        <div className="h-full w-full rounded-b-[30rem] overflow-hidden shadow-2xl group">
-          <img 
-            src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80" 
+        <div className="w-[600px] h-[750px] rounded-b-[30rem] overflow-hidden shadow-2xl group">
+          <img
+            src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80"
             alt="Michael"
-            className="w-full h-full object-cover object-top scale-105 group-hover:scale-100 transition-transform duration-500"
+            className="w-full h-full object-cover object-top scale-105 "
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"/>
         </div>
       </motion.div>
-      
+
       {/* Mobile Image */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
         className="absolute top-0 left-1/2 -translate-x-1/2 h-[40vh] w-[80vw] max-w-sm lg:hidden block"
       >
         <div className="h-full w-full rounded-b-full overflow-hidden shadow-2xl group">
-            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80" alt="Michael" className="w-full h-full object-cover object-top" />
+          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80" alt="Michael" className="w-full h-full object-cover object-top" />
         </div>
       </motion.div>
 
 
-      <div className="w-full h-full max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-8 relative z-20 pt-[45vh] lg:pt-0">
-        
+      <div className="w-full h-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-start gap-8 relative z-20 pt-[45vh] lg:pt-12">
+
         {/* Left Content */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="lg:text-left text-center"
+          className="lg:text-left text-top"
         >
-          <h2 className="text-2xl font-light text-[#5C5C5C] tracking-wider">
-            Creative Developer
-          </h2>
-          <h1 className="text-8xl lg:text-9xl font-extrabold text-[#2C2C2C] my-4 text-transparent bg-clip-text bg-gradient-to-r from-[#2C2C2C] to-[#5C5C5C]">
-            Michael
-          </h1>
-          <p className="text-lg text-[#6B6B6B] max-w-sm mx-auto lg:mx-0 mb-8">
-            Building beautiful, high-performance web experiences from concept to launch.
-          </p>
-          <a href="mailto:michael.email@example.com">
-            <Button size="lg" className="bg-[#C97064] hover:bg-[#B86054] text-white rounded-xl px-8 py-6 group">
-              Contact Me <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </a>
+          <div className="flex flex-col max-w-[360px] w-full -mt-11">
+            <h2 className="font-serifalt text-4xl font-bold text-black tracking-widest scale-y-110">
+              Hey. I'm Michael,
+            </h2>
+
+            <h1 className="font-accent uppercase  text-black text-8xl md:text-11xl mt-5 -mb-4 scale-y-100 ">
+              A UI/UX
+            </h1>
+            <h1 className="font-serif italic text-black text-6xl md:text-10xl">
+              <span className="text-11xl">&</span> <span className="scale-y-110">Creative</span>
+            </h1>
+            <h1 className="font-accent uppercase text-black text-10xl md:text-11xl -mt-2 mb-3 scale-y-100">
+              Developer 
+            </h1>
+
+            <div className="h-[144px]">
+              <p className="font-serifalt font-thin text-black text-left text-3xl leading-[1.15] tracking-tight h-full scale-y-110">
+                I build elegant, high-performance websites and digital experiences that merge creativity with clean code, SEO, and precise QA.
+              </p>
+            </div>
+
+            <a href="mailto:michael.email@example.com">
+              <Button className=" bg-neutral hover:bg-primary-dark text-lg text-white font-accent px-6 py-3 pr-1.5 rounded-full mt-2 inline-flex items-center justify-center uppercase gap-5 group transition-colors duration-300">
+                <span>Contact Me</span>
+
+                {/* Arrow wrapper (circle) */}
+                <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white transition-all duration-300 group-hover:bg-neutral">
+                  <ArrowRight
+                    className="w-4 h-4 text-black transition-all duration-300 group-hover:text-white group-hover:-rotate-45"
+                  />
+                </span>
+              </Button>
+            </a>
+          </div>
         </motion.div>
 
         {/* Right Content */}
-        <div className="flex-col gap-10 items-end hidden lg:flex">
-          <StatCard icon={Zap} value="50+" label="Projects Delivered" delay={0.4} />
-          <StatCard icon={Users} value="25+" label="Happy Clients" delay={0.6} />
-          <StatCard icon={Star} value="5k+" label="Contributions" delay={0.8} />
-          <StatCard icon={TrendingUp} value="8" label="Years of Experience" delay={1.0} />
-        </div>
+        <motion.div
+          layout
+          initial={false}
+          transition={{ type: 'spring', stiffness: 140, damping: 20 }}
+          className="flex-col gap-6 items-end hidden lg:flex mt-14 lg:translate-x-[5px]"
+        >
+          <StatCard
+            heading="100%"
+            subtext="React + Tailwind"
+            detailBody="Built entirely with React components and styled using Tailwind CSS for a modern, responsive interface and clean developer workflow."
+            isOpen={openCard === 'build'}
+            onToggle={() => setOpenCard((prev) => (prev === 'build' ? null : 'build'))}
+            delay={0.4}
+          />
+          <StatCard
+            heading="24/7"
+            subtext="Automated backend"
+            detailBody="A scheduled cron job automatically summarizes monthly blog content using OpenAI, keeping site highlights fresh and up to date."
+            isOpen={openCard === 'backend'}
+            onToggle={() => setOpenCard((prev) => (prev === 'backend' ? null : 'backend'))}
+            delay={0.6}
+          />
+          <StatCard
+            heading="90+"
+            subtext="Lighthouse score"
+            detailBody="Optimized for performance, accessibility, and SEO — consistently achieving a 90+ Lighthouse score across key metrics."
+            isOpen={openCard === 'lighthouse'}
+            onToggle={() => setOpenCard((prev) => (prev === 'lighthouse' ? null : 'lighthouse'))}
+            delay={0.8}
+          />
+          <StatCard
+            heading="3"
+            subtext="APIs live"
+            detailBody="Integrated with OpenAI, a daily quote API, and OpenWeather API to make the site's theme weather dependent."
+            isOpen={openCard === 'apis'}
+            onToggle={() => setOpenCard((prev) => (prev === 'apis' ? null : 'apis'))}
+            delay={1.0}
+          />
+        </motion.div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="absolute bottom-0 left-0 right-0 w-full flex justify-center pb-8 z-20">
-        <motion.div 
+      <div className="absolute bottom-0 left-0 right-0 w-full flex justify-center pb-8 -mb-5 z-20">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="bg-white/50 backdrop-blur-sm border border-white/30 rounded-2xl shadow-lg p-6 w-full max-w-4xl"
+          className="p-6 w-full max-w-[1250px]"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left">
-            <ResultCard icon={TrendingUp} text="+30% User Engagement" delay={1.3} />
-            <ResultCard icon={Zap} text="-50% Page Load Time" delay={1.4} />
-            <ResultCard icon={Users} text="98% Client Satisfaction" delay={1.5} />
-            <ResultCard icon={Star} text="100% Responsive Design" delay={1.6} />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-50 items-end text-left">
+            <ResultCard
+              heading="Design Clarity"
+              subtext="Clean layouts and brand harmony create a polished first impression."
+              delay={1.3}
+            />
+            <ResultCard
+              heading="Smooth Journeys"
+              subtext="Intuitive navigation and responsive feel keep visitors engaged."
+              delay={1.4}
+              showDivider
+            />
+            <ResultCard
+              heading="Tailored Builds"
+              subtext="Websites are crafted around your goals, tone, and audience."
+              delay={1.5}
+              showDivider
+            />
+            <ResultCard
+              heading="Measurable Impact"
+              subtext="Projects deliver higher engagement, stronger conversions, and lasting loyalty."
+              delay={1.6}
+              showDivider
+            />
           </div>
         </motion.div>
       </div>
