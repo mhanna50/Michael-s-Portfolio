@@ -22,7 +22,7 @@ const StatCard = ({ heading, subtext, detailBody, delay, isOpen, onToggle }) => 
     >
       <div className="flex items-end justify-end gap-3">
         <ChevronDown
-          className={`w-4 h-4 text-primary-dark transition-transform duration-300 -mt-1 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-primary-dark transition-transform duration-300 mb-1 -mr-2 ${isOpen ? 'rotate-180' : ''}`}
         />
         <div className="space-y-1">
           <p className="font-accent uppercase text-5xl text-black">{heading}</p>
@@ -45,7 +45,7 @@ const StatCard = ({ heading, subtext, detailBody, delay, isOpen, onToggle }) => 
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 8, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="py-3 text-sm font-serifalt text-black"
+            className="py-3 text-base font-serifalt text-black"
           >
             {detailBody}
           </motion.p>
@@ -67,7 +67,7 @@ const ResultCard = ({ heading, subtext, delay, showDivider = false }) => (
     }`}
   >
     <div className="w-full leading-tight space-y-0.5 text-left">
-      <p className="font-accent uppercase text-xl md:text-xl text-neutral scale-y-100">{heading}</p>
+      <p className="font-accent uppercase text-xl md:text-xl text-black scale-y-100">{heading}</p>
       <p className="font-serifalt text-md text-neutral line-clamp-2">{subtext}</p>
     </div>
   </motion.div>
@@ -138,11 +138,11 @@ export default function HeroSection() {
             </div>
 
             <a href="mailto:michael.email@example.com">
-              <Button className=" bg-neutral hover:bg-primary-dark text-lg text-white font-accent px-6 py-3 pr-1.5 rounded-full mt-2 inline-flex items-center justify-center uppercase gap-5 group transition-colors duration-300">
+              <Button className=" bg-neutral hover:bg-primary text-lg text-white font-accent px-8 py-2.5 pr-1.5 rounded-full mt-2 inline-flex items-center justify-center uppercase gap-5 group transition-colors duration-300">
                 <span>Contact Me</span>
 
                 {/* Arrow wrapper (circle) */}
-                <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white transition-all duration-300 group-hover:bg-neutral">
+                <span className="flex items-center mr-1 justify-center w-10 h-10 rounded-full bg-white transition-all duration-300 group-hover:bg-neutral">
                   <ArrowRight
                     className="w-4 h-4 text-black transition-all duration-300 group-hover:text-white group-hover:-rotate-45"
                   />
