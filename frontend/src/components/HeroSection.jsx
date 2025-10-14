@@ -76,7 +76,7 @@ export default function HeroSection() {
   const [openCard, setOpenCard] = useState(null);
 
   return (
-    <section className="relative flex flex-col items-center justify-start bg-gradient-to-br from-neutral-light via-secondary-light to-primary-light min-h-[max(720px,100vh)] px-6 lg:px-12 pt-16 lg:pt-20 pb-10 lg:pb-16 overflow-visible">
+    <section className="relative flex flex-col items-center justify-start bg-gradient-to-br from-neutral-light via-secondary-light to-primary-light min-h-[max(950px,100vh)] px-6 lg:px-12 pt-16 lg:pt-20 pb-10 overflow-visible">
 
 
 
@@ -205,12 +205,12 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="w-full flex justify-center pb-8 lg:pb-10 z-20 mt-auto">
+      <div className="w-full flex justify-center z-20 mt-auto pt-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="p-6 w-full max-w-[1250px]"
+          className="px-6 pt-6 pb-0 w-full max-w-[1250px]"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-50 items-end text-left">
             <ResultCard
