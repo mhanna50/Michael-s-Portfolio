@@ -60,11 +60,10 @@ const ResultCard = ({ heading, subtext, delay, showDivider = false }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: delay }}
-    className={`flex h-full w-full flex-col items-start justify-end ${
-      showDivider
+    className={`flex h-full w-full flex-col items-start justify-end ${showDivider
         ? 'border-t border-primary-dark/40 pt-4 md:border-t-0 md:pt-0 md:border-l md:border-primary-dark/40 md:pl-5 max-w-[1200px]'
         : ''
-    }`}
+      }`}
   >
     <div className="w-full leading-tight space-y-0.5 text-left">
       <p className="font-accent uppercase text-xl md:text-xl text-black scale-y-100">{heading}</p>
@@ -77,7 +76,18 @@ export default function HeroSection() {
   const [openCard, setOpenCard] = useState(null);
 
   return (
-    <section className="min-h-screen relative flex items-start justify-center bg-gradient-to-br from-neutral-light via-secondary-light to-primary-light min-h-screen px-6 lg:px-12 pt-16 lg:pt-20 pb-6 lg:pb-12 overflow-hidden">
+    <section className="relative flex flex-col items-center justify-start bg-gradient-to-br from-neutral-light via-secondary-light to-primary-light min-h-[max(720px,100vh)] px-6 lg:px-12 pt-16 lg:pt-20 pb-10 lg:pb-16 overflow-visible">
+
+
+
+      <nav className="absolute top-6 left-1/2 -translate-x-1/2 w-full max-w-[1200px] z-30 flex items-center justify-end">
+        <a
+          href="/blog"
+          className="font-accent uppercase tracking-[0.35em] text-xs sm:text-4xl text-black/70 hover:text-black transition-colors duration-200"
+        >
+          Blog
+        </a>
+      </nav>
       {/* Centered, Overlapping Image */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -107,7 +117,7 @@ export default function HeroSection() {
       </motion.div>
 
 
-      <div className="w-full h-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-start gap-8 relative z-20 pt-[45vh] lg:pt-12">
+      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-start gap-8 relative z-20 pt-[45vh] lg:pt-12 flex-1">
 
         {/* Left Content */}
         <motion.div
@@ -128,7 +138,7 @@ export default function HeroSection() {
               <span className="text-11xl">&</span> <span className="scale-y-110">Creative</span>
             </h1>
             <h1 className="font-accent uppercase text-black text-10xl md:text-11xl -mt-2 mb-3 scale-y-100">
-              Developer 
+              Developer
             </h1>
 
             <div className="h-[144px]">
@@ -195,7 +205,7 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="absolute bottom-0 left-0 right-0 w-full flex justify-center pb-8 -mb-5 z-20">
+      <div className="w-full flex justify-center pb-8 lg:pb-10 z-20 mt-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
