@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import HeroSection from '../components/HeroSection';
-import AboutSection from '../components/AboutSection';
-import PortfolioSection from '../components/PortfolioSection';
-import CertificationsSection from '../components/CertificationsSection';
-import SkillsSection from '../components/SkillsSection';
-import ContactSection from '../components/ContactSection';
+import HeroSection from '../components/HomeSections/HeroSection';
+import AboutSection from '../components/HomeSections/AboutSection';
+import PortfolioSection from '../components/HomeSections/PortfolioSection';
+import CertificationsSection from '../components/HomeSections/CertificationsSection';
+import SkillsSection from '../components/HomeSections/SkillsSection';
+import ContactSection from '../components/HomeSections/ContactSection';
 
 export default function Home() {
   useEffect(() => {

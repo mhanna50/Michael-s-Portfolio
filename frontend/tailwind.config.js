@@ -58,6 +58,15 @@ export default {
         '13xl': ['9rem', { lineHeight: '1.05' }], // 144px
         '14xl': ['10rem', { lineHeight: '1.05' }],// 160px
       },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: 0, transform: 'translateY(16px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 280ms ease-out forwards',
+      },
     },
   },
   plugins: [],
