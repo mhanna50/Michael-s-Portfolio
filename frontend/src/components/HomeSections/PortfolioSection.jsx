@@ -7,35 +7,51 @@ import ProjectCard from './ProjectCard';
 
 const featuredProjects = [
   {
-    title: 'Studio Palette',
-    category: 'Website Launch',
+    title: 'This Portfolio',
+    category: 'Website Design & Launch',
     description:
-      'A narrative-driven web build for a creative studio, combining lush visuals, handcrafted motion, and an SEO-friendly content model.',
-    highlights: ['End-to-end UX, UI, Dev, QA', 'Framer Motion storytelling hero', 'Editable article system for the team'],
-    liveUrl: 'https://studio-palette.example.com',
-    caseStudyUrl: 'https://studio-palette.example.com/case-study',
-    cover: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=80',
-  },
-  {
-    title: 'Code Atlas',
-    category: 'Full-Stack Sprint',
-    description:
-      'A performance-first knowledge base documenting engineering patterns with automated testing gates and AI-assisted search.',
-    highlights: ['Next.js + Edge runtime', 'Playwright regression suite', 'Semantic search with vector DB'],
-    liveUrl: 'https://code-atlas.example.com',
-    caseStudyUrl: 'https://code-atlas.example.com/build-notes',
-    cover: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1400&q=80',
-  },
-  {
-    title: 'Search Symphony',
-    category: 'SEO & Branding Retainer',
-    description:
-      'Ongoing brand and content optimization for a SaaS platform—pairing UX refinements with technical SEO and growth experiments.',
-    highlights: ['+62% organic lift in 6 months', 'Component-level A/B testing', 'Brand voice system + CMS toolkit'],
+      'A personal portfolio site showcasing my projects, skills, and the story behind why I love to create.',
+    highlights: ['4 week build duration','Fully Custom Coded'],
     liveUrl: 'https://search-symphony.example.com',
     caseStudyUrl: 'https://search-symphony.example.com/strategy',
     cover: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1400&q=80',
+    testimonial: {
+      type: 'quote',
+      quote: 'The portfolio perfectly captures my journey and the essence of my work. It’s more than just a site; it’s a reflection of my passion and dedication.',
+      author: 'Michael Hanna · Designer & Developer',
+    },
   },
+  {
+    title: 'Millie Aesthetics',
+    category: 'Website Design & Launch',
+    description:
+      'A refined brand and online presence for a beauty and weight-loss focused Medical Spa, blending elegant design with seamless user experience.',
+    highlights: ['3 week build duration', 'Built using Wordpress'],
+    liveUrl: 'https://studio-palette.example.com',
+    caseStudyUrl: 'https://studio-palette.example.com/case-study',
+    cover: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=80',
+    testimonial: {
+      type: 'video',
+      videoUrl: 'https://player.vimeo.com/video/76979871?h=7e0a5a05f9&title=0&byline=0&portrait=0',
+      caption: 'Mille Aestetics · Owner & Aesthetician',
+    },
+  },
+  {
+    title: 'American Craftsman LLC',
+    category: 'Website Design & Launch',
+    description:
+      'An updated brand identity, SEO Strategy, and website for a local contracting firm, highlighting craftsmanship and personalized service.',
+    highlights: ['5 week project duration', 'Built using Framer'],
+    liveUrl: 'https://americancraftsmanllc.com',
+    caseStudyUrl: 'https://code-atlas.example.com/build-notes',
+    cover: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1400&q=80',
+    testimonial: {
+      type: 'quote',
+      quote: 'Fill in with jims quote',
+      author: 'American Craftsman · Owner & Lead Contractor',
+    },
+  },
+  
 ];
 
 const projectCollections = {
@@ -131,7 +147,43 @@ const fadeInUp = {
   }),
 };
 
+function renderTextWithStyledAmpersand(text) {
+  if (!text || !text.includes('&')) {
+    return text;
+  }
+
+  const segments = text.split('&');
+  const content = [];
+
+  segments.forEach((segment, index) => {
+    content.push(
+      <React.Fragment key={`segment-${index}`}>
+        {segment}
+      </React.Fragment>,
+    );
+
+    if (index < segments.length - 1) {
+      content.push(
+        <span key={`amp-${index}`} className="font-serif italic text-current">
+          &
+        </span>,
+      );
+    }
+  });
+
+  return content;
+}
+
 function FeaturedProjectCard({ project, index }) {
+  const thirdProjectTestimonial = featuredProjects[2]?.testimonial;
+  const testimonialEntries = [
+    ...(project.testimonial ? [project.testimonial] : []),
+    ...(project.additionalTestimonials || []),
+    ...(project.duplicateThirdTestimonial && thirdProjectTestimonial
+      ? [{ ...thirdProjectTestimonial, duplicatedFromThird: true }]
+      : []),
+  ];
+
   return (
     <motion.article
       variants={fadeInUp}
@@ -167,7 +219,7 @@ function FeaturedProjectCard({ project, index }) {
           </p>
         </div>
         {project.highlights && (
-          <ul className="mt-6 space-y-2 text-sm font-serifalt text-neutral-dark/70">
+          <ul className="mt-6 space-y-2 text-base font-serifalt text-neutral-dark/70">
             {project.highlights.map((item, highlightIndex) => (
               <li key={highlightIndex} className="flex items-start gap-2">
                 <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary-dark/60" />
@@ -175,6 +227,49 @@ function FeaturedProjectCard({ project, index }) {
               </li>
             ))}
           </ul>
+        )}
+        {testimonialEntries.length > 0 && (
+          <div className="mt-8 space-y-6">
+            {testimonialEntries.map((testimonialEntry, testimonialIndex) =>
+              testimonialEntry.type === 'video' ? (
+                <div
+                  key={`${project.title}-testimonial-video-${testimonialIndex}`}
+                  className="overflow-hidden rounded-2xl border border-primary-dark/20 bg-black/80 shadow-lg"
+                >
+                  <div className="aspect-video w-full">
+                    <iframe
+                      src={testimonialEntry.videoUrl}
+                      title={`${project.title} testimonial video ${testimonialIndex + 1}`}
+                      className="h-full w-full"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  {testimonialEntry.caption && (
+                    <p className="px-4 py-3 text-sm font-serifalt uppercase tracking-[0.2em] text-white/80">
+                      {renderTextWithStyledAmpersand(testimonialEntry.caption)}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <blockquote
+                  key={`${project.title}-testimonial-quote-${testimonialIndex}`}
+                  className="rounded-2xl border border-primary-dark/20 bg-white/80 p-6 text-base text-neutral-dark/80 shadow-sm backdrop-blur"
+                >
+                  {testimonialEntry.quote && (
+                    <p className="font-serif italic leading-relaxed">
+                      “{renderTextWithStyledAmpersand(testimonialEntry.quote)}”
+                    </p>
+                  )}
+                  {testimonialEntry.author && (
+                    <footer className="mt-3 font-accent uppercase tracking-[0.2em] text-base text-primary-black">
+                      {renderTextWithStyledAmpersand(testimonialEntry.author)}
+                    </footer>
+                  )}
+                </blockquote>
+              ),
+            )}
+          </div>
         )}
         <div className="mt-8 flex flex-wrap gap-3">
           {project.liveUrl && (
@@ -207,6 +302,8 @@ function FeaturedProjectCard({ project, index }) {
 
 export default function PortfolioSection() {
   const [activeTab, setActiveTab] = useState('websites');
+  const activeTabConfig = tabConfig.find((tab) => tab.value === activeTab);
+  const activeProjects = activeTabConfig ? projectCollections[activeTabConfig.value] : [];
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-neutral-light via-secondary-light/60 to-primary-light/40 py-28 px-6">
@@ -223,21 +320,26 @@ export default function PortfolioSection() {
           <span className="font-accent uppercase tracking-[0.35em] text-lg text-primary-dark/70">
             Portfolio
           </span>
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-4">
             <h2 className="max-w-3xl font-serifalt text-5xl md:text-6xl text-black leading-tight">
               Signature builds that span design systems, high-performing code, and measurable outcomes.
             </h2>
-            <a href="mailto:michael.email@example.com">
+          </div>
+          <div className="h-1 w-24 rounded-full bg-primary-dark/70" />
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <p className="max-w-3xl font-serifalt text-lg text-neutral-dark/80">
+              From launch-ready business sites to custom web applications and coding projects, I ensure
+              every project blends thoughtful user experience with high-level quality assurance.
+            </p>
+            <a
+              href="mailto:michaelhanna@gmail.com"
+              className="md:ml-5 md:self-end"
+            >
               <Button className="rounded-full bg-neutral px-7 py-2 text-base font-accent uppercase tracking-[0.2em] text-white hover:bg-primary transition-colors">
                 Work Together
               </Button>
             </a>
           </div>
-          <div className="h-1 w-24 rounded-full bg-primary-dark/70" />
-          <p className="max-w-3xl font-serifalt text-lg text-neutral-dark/80">
-            From launch-ready marketing sites to living documentation systems and ongoing optimization retainers,
-            every project blends thoughtful UX, resilient engineering, and airtight QA.
-          </p>
         </motion.header>
 
         <div className="grid gap-8 lg:grid-cols-3">
@@ -262,15 +364,12 @@ export default function PortfolioSection() {
                 Explore additional builds by discipline.
               </h3>
             </div>
-            <p className="font-serifalt text-sm text-neutral-dark/70 max-w-xl">
-              Jump into the project track that matches what you are evaluating—each one combines deliverables,
-              tech stacks, and behind-the-scenes process notes.
-            </p>
+            
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-8">
             <div className="flex w-full justify-start overflow-x-auto pb-2">
-              <TabsList className="flex w-full justify-start gap-2 rounded-full border border-primary-dark/20 bg-white/60 p-2 backdrop-blur">
+              <TabsList className="flex w-full justify-center gap-6 rounded-full border border-primary-dark/20 bg-white/60 p-2 backdrop-blur">
                 {tabConfig.map((tab) => (
                   <TabsTrigger
                     key={tab.value}
@@ -284,24 +383,22 @@ export default function PortfolioSection() {
             </div>
 
             <AnimatePresence mode="wait">
-              {tabConfig.map((tab) => (
-                <TabsContent key={tab.value} value={tab.value} className="mt-10">
-                  {activeTab === tab.value && (
-                    <motion.div
-                      key={tab.value}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.4, ease: 'easeOut' }}
-                      className="grid gap-8 md:grid-cols-2"
-                    >
-                      {projectCollections[tab.value].map((project, index) => (
-                        <ProjectCard key={project.title} project={project} index={index} />
-                      ))}
-                    </motion.div>
-                  )}
+              {activeTabConfig && (
+                <TabsContent key={activeTabConfig.value} value={activeTabConfig.value} className="mt-10">
+                  <motion.div
+                    key={activeTabConfig.value}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    className="grid gap-8 md:grid-cols-2"
+                  >
+                    {activeProjects.map((project, index) => (
+                      <ProjectCard key={project.title} project={project} index={index} />
+                    ))}
+                  </motion.div>
                 </TabsContent>
-              ))}
+              )}
             </AnimatePresence>
           </Tabs>
         </motion.div>

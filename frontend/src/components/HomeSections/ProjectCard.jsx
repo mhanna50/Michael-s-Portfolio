@@ -30,15 +30,15 @@ export default function ProjectCard({ project, index }) {
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
-            <span className="text-white text-sm font-medium">View Media</span>
+            <span className="text-white text-sm font-serif">View Media</span>
           </div>
         </div>
 
         <div className="p-8">
-          <h3 className="text-2xl font-medium text-[#2C2C2C] mb-3 group-hover:text-[#A8B8A0] transition-colors">
+          <h3 className="text-2xl font-accent font-medium text-[#2C2C2C] mb-3 group-hover:text-[#A8B8A0] transition-colors">
             {project.title}
           </h3>
-          <p className="text-[#6B6B6B] leading-relaxed mb-6">
+          <p className="text-[#6B6B6B] leading-relaxed mb-6 font-serifalt">
             {project.description}
           </p>
 
@@ -48,7 +48,7 @@ export default function ProjectCard({ project, index }) {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-[#2C2C2C] text-white rounded-lg hover:bg-[#3C3C3C] transition-colors text-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-[#2C2C2C] text-white rounded-lg hover:bg-[#3C3C3C] transition-colors text-sm font- tracking-wide"
               >
                 <Github className="w-4 h-4" />
                 GitHub
@@ -59,7 +59,7 @@ export default function ProjectCard({ project, index }) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-[#C97064] text-white rounded-lg hover:bg-[#B86054] transition-colors text-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-[#C97064] text-white rounded-lg hover:bg-[#B86054] transition-colors text-sm font-accent tracking-wide"
               >
                 <ExternalLink className="w-4 h-4" />
                 Live Demo
@@ -72,7 +72,7 @@ export default function ProjectCard({ project, index }) {
       <Dialog open={showMedia} onOpenChange={setShowMedia}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-light text-[#2C2C2C]">{project.title}</DialogTitle>
+            <DialogTitle className="text-2xl font-heading font-light text-[#2C2C2C]">{project.title}</DialogTitle>
           </DialogHeader>
           <div className="mt-4">
             {project.media && project.media.length > 0 ? (
@@ -88,7 +88,7 @@ export default function ProjectCard({ project, index }) {
               </div>
             ) : (
               <div className="bg-gradient-to-br from-[#A8B8A0] to-[#D4A5A5] h-96 rounded-lg flex items-center justify-center">
-                <p className="text-white text-lg">No media available</p>
+                <p className="text-white text-lg font-body">No media available</p>
               </div>
             )}
           </div>

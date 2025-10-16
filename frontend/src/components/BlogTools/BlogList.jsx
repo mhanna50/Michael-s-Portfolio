@@ -25,7 +25,6 @@ export default function BlogList({ posts: incomingPosts }) {
   const posts = Array.isArray(incomingPosts) ? incomingPosts : getAllPosts();
   const [selectedSort, setSelectedSort] = useState(SORT_OPTIONS[0]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [animationCycle, setAnimationCycle] = useState(0);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -48,10 +47,6 @@ export default function BlogList({ posts: incomingPosts }) {
     };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    setAnimationCycle((cycle) => cycle + 1);
-  }, [posts.length]);
-
   const sortedPosts = useMemo(() => {
     const sorter = selectedSort?.sortFn ?? SORT_OPTIONS[0].sortFn;
     return [...posts].sort(sorter);
@@ -59,7 +54,6 @@ export default function BlogList({ posts: incomingPosts }) {
 
   const handleSortSelect = (option) => {
     setSelectedSort(option);
-    setAnimationCycle((cycle) => cycle + 1);
     setIsMenuOpen(false);
   };
 
@@ -110,11 +104,10 @@ export default function BlogList({ posts: incomingPosts }) {
       </div>
 
       <div className="grid gap-10 md:grid-cols-2">
-        {sortedPosts.map((post, index) => (
+        {sortedPosts.map((post) => (
           <article
-            key={`${post.slug}-${animationCycle}`}
-            className="group relative overflow-hidden rounded-[2.25rem] border border-primary-dark/15 bg-white/75 p-9 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl animate-fade-up"
-            style={{ animationDelay: `${index * 60}ms` }}
+            key={post.slug}
+            className="group relative overflow-hidden rounded-[2.25rem] border border-primary-dark/15 bg-white/75 p-9 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
           >
             <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 via-white/5 to-secondary-light/35" />

@@ -1,8 +1,46 @@
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
 import BlogList from "../components/BlogTools/BlogList";
 import { getAllPosts } from "../utils/loadposts";
 import { formatReadableDate } from "../utils/formatDate";
+
+const heroContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const heroItem = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const featureCardVariants = {
+  hidden: { opacity: 0, y: 36 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+};
+
+const sectionReveal = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: "easeOut" },
+  },
+};
 
 export default function Blog() {
   const posts = getAllPosts();
@@ -12,8 +50,16 @@ export default function Blog() {
     <main className="min-h-screen bg-gradient-to-br from-neutral-light via-secondary-light/40 to-primary-light/60 text-neutral">
       <section className="relative overflow-hidden px-6 pt-10 pb-12 md:pt-12 md:pb-16">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.75),_transparent_55%)]" />
-        <div className="relative mx-auto max-w-6xl space-x-2 space-y-10">
-          <nav className="flex items-center justify-between text-sm font-accent uppercase tracking-[0.28em] text-primary-dark/70">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={heroContainer}
+          className="relative mx-auto max-w-6xl space-x-2 space-y-10"
+        >
+          <motion.nav
+            variants={heroItem}
+            className="flex items-center justify-between text-sm font-accent uppercase tracking-[0.28em] text-primary-dark/70"
+          >
             <a
               href="/"
               className="inline-flex items-center gap-3 rounded-full border border-primary-dark/30 bg-white/65 px-6 py-3 text-base text-primary-dark transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white"
@@ -28,9 +74,9 @@ export default function Blog() {
               <span>All Articles</span>
               <ArrowUpRight className="h-5 w-5" />
             </a>
-          </nav>
+          </motion.nav>
 
-          <header className="max-w-4xl space-y-6 ">
+          <motion.header variants={heroItem} className="max-w-4xl space-y-6 ">
             <p className="font-accent uppercase tracking-[0.35em] text-md text-primary-dark/70">
               Studio Journal
             </p>
@@ -43,10 +89,13 @@ export default function Blog() {
               performance-minded experiences. Each entry connects the dots between UX strategy,
               refined visuals, and production-quality code.
             </p>
-          </header>
+          </motion.header>
 
           {featuredPost && (
-            <div className="grid gap-10 rounded-[3rem] border border-primary-dark/20 bg-white/70 p-6 shadow-2xl backdrop-blur-sm md:grid-cols-[0.55fr,0.45fr] lg:grid-cols-[0.45fr,0.55fr] lg:gap-14">
+            <motion.div
+              variants={featureCardVariants}
+              className="grid gap-10 rounded-[3rem] border border-primary-dark/20 bg-white/70 p-6 shadow-2xl backdrop-blur-sm md:grid-cols-[0.55fr,0.45fr] lg:grid-cols-[0.45fr,0.55fr] lg:gap-14"
+            >
               <div className="flex flex-col gap-6 rounded-[2rem] bg-white/0 px-6 py-6 sm:px-8 lg:gap-8 lg:justify-center lg:pl-12 lg:pr-6 lg:py-10">
                 <div className="flex flex-col gap-5">
                   <p className="font-accent uppercase tracking-[0.35em] text-sm text-secondary-dark">
@@ -92,10 +141,13 @@ export default function Blog() {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
 
-          <div className="flex items-center justify-center">
+          <motion.div
+            variants={heroItem}
+            className="flex items-center justify-center"
+          >
             <svg
               className="h-12 w-24 animate-bounce-slow text-neutral/45"
               viewBox="0 0 120 60"
@@ -110,19 +162,23 @@ export default function Blog() {
                 strokeLinejoin="round"
               />
             </svg>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
-      <section
+      <motion.section
         className="relative overflow-hidden bg-neutral-light px-6 pb-24 pt-12 sm:pt-16 md:pt-24"
         id="all-posts"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2, margin: "0px 0px -80px 0px" }}
+        variants={sectionReveal}
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-40 -translate-y-1/2 bg-gradient-to-b from-white/80 via-white/40 to-transparent" />
         <div className="relative mx-auto max-w-6xl">
           <BlogList posts={posts} />
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }

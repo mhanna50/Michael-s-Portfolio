@@ -50,20 +50,20 @@ export default function AboutSection() {
             >
               <div className="space-y-6 text-xl leading-relaxed text-neutral-dark font-serifalt">
                 <p>
-                  I’m a multidisciplinary designer-developer obsessed with translating brand stories into
-                  tactile digital experiences. My work leans into the details—harmonizing typography, motion,
-                  and micro-interactions to create moments that feel bespoke and intentional.
+                  I’m a multidisciplinary designer-developer who loves transforming brand stories into
+                  digital works. My work leans into the details—balancing typography, motion,
+                  and small interactions to create moments that feel smooth and intentional.
                 </p>
                 <p>
-                  Over the past few years I’ve bridged UI/UX strategy, full-stack engineering, and hands-on QA,
-                  which means every interface I ship is backed by a thoughtful information architecture and
-                  production-ready code. I thrive in the collaborative middle ground where design systems meet
-                  performance budgets.
+                  Over the past few years, I’ve worked at the intersection of design and 
+                  development — blending UI/UX strategy, full-stack engineering, and hands-on QA. 
+                  Which means, I make sure every interface not only looks great but performs flawlessly, bridging 
+                  the gap between creative vision and real-world performance.
                 </p>
                 <p>
-                  When I’m not prototyping new flows or refining component libraries, you’ll find me exploring
-                  the latest accessibility patterns, experimenting with creative coding, or writing about the
-                  craft of building resilient products.
+                  When I’m not piecing together new interfaces, I’m usually experimenting, 
+                  learning, or writing — chasing small discoveries in accessibility, creative coding, 
+                  or the craft of making products that stand the test of time.
                 </p>
               </div>
             </motion.article>

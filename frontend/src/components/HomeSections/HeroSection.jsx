@@ -232,7 +232,7 @@ export default function HeroSection() {
             />
             <ResultCard
               heading="Measurable Impact"
-              subtext="Projects deliver higher engagement, stronger conversions, and lasting loyalty."
+              subtext="Projects deliver higher engagement and stronger conversions."
               delay={1.6}
               showDivider
             />
