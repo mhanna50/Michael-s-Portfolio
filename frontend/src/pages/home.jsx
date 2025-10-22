@@ -22,7 +22,7 @@ export default function Home() {
       <AboutSection />
       <PortfolioSection />
       <CertificationsSection />
-      <SkillsSection />
+      
       <ContactSection />
     </div>
   );

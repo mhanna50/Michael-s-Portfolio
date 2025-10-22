@@ -322,13 +322,13 @@ export default function PortfolioSection() {
           </span>
           <div className="flex flex-col gap-4">
             <h2 className="max-w-3xl font-serifalt text-5xl md:text-6xl text-black leading-tight">
-              Signature builds that span design systems, high-performing code, and measurable outcomes.
+              Signature builds that span launch-ready business sites to custom web applications and coding projects.
             </h2>
           </div>
           <div className="h-1 w-24 rounded-full bg-primary-dark/70" />
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <p className="max-w-3xl font-serifalt text-lg text-neutral-dark/80">
-              From launch-ready business sites to custom web applications and coding projects, I ensure
+              I ensure
               every project blends thoughtful user experience with high-level quality assurance.
             </p>
             <a
@@ -357,7 +357,7 @@ export default function PortfolioSection() {
         >
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
             <div className="space-y-1">
-              <p className="font-accent uppercase tracking-[0.3em] text-sm text-secondary-dark/80">
+              <p className="font-accent uppercase tracking-[0.3em] text-lg text-secondary-dark/80">
                 Deep Dive Library
               </p>
               <h3 className="font-serifalt text-3xl text-black leading-tight">

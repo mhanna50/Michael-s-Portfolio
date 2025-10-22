@@ -8,12 +8,17 @@ const detailVariants = {
   collapsed: { height: 0, opacity: 0, transition: { duration: 0.25, ease: 'easeIn' } },
 };
 
-const StatCard = ({ heading, subtext, detailBody, delay, isOpen, onToggle }) => (
+const floatingDetailVariants = {
+  open: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+  collapsed: { opacity: 0, y: 12, transition: { duration: 0.25, ease: 'easeIn' } },
+};
+
+const StatCard = ({ heading, subtext, detailBody, delay, isOpen, onToggle, floatDetail = false }) => (
   <motion.div
     initial={{ opacity: 0, x: 20 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ type: 'spring', stiffness: 120, damping: 18, delay }}
-    className="text-right space-y-2 max-w-xs"
+    className={`relative text-right space-y-2 max-w-xs ${floatDetail ? 'pb-10' : ''}`}
   >
     <button
       type="button"
@@ -34,18 +39,21 @@ const StatCard = ({ heading, subtext, detailBody, delay, isOpen, onToggle }) => 
       {isOpen && (
         <motion.div
           key="detail"
-          variants={detailVariants}
+          variants={floatDetail ? floatingDetailVariants : detailVariants}
           initial="collapsed"
           animate="open"
           exit="collapsed"
-          className="mt-2 overflow-hidden rounded-lg border border-secondary-dark/40 px-3 text-left shadow max-w-[220px] ml-auto bg-transparent"
+          className={`overflow-hidden rounded-lg border border-secondary-dark/40 text-left shadow max-w-[220px] bg-white/90 backdrop-blur-sm ${floatDetail
+              ? 'absolute right-0 top-[calc(100%+0.75rem)] px-4 py-3 pointer-events-auto'
+              : 'mt-2 px-3 ml-auto bg-transparent'
+            }`}
         >
           <motion.p
             initial={{ y: 8, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 8, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="py-3 text-base font-serifalt text-black"
+            className={`text-base font-serifalt text-black ${floatDetail ? 'leading-6' : 'py-3'}`}
           >
             {detailBody}
           </motion.p>
@@ -97,7 +105,7 @@ export default function HeroSection() {
       >
         <div className="w-[600px] h-[750px] rounded-b-[30rem] overflow-hidden shadow-2xl group">
           <img
-            src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80"
+            src="images/personal/portfolio.jpeg"
             alt="Michael"
             className="w-full h-full object-cover object-top scale-105 "
           />
@@ -112,7 +120,7 @@ export default function HeroSection() {
         className="absolute top-0 left-1/2 -translate-x-1/2 h-[40vh] w-[80vw] max-w-sm lg:hidden block"
       >
         <div className="h-full w-full rounded-b-full overflow-hidden shadow-2xl group">
-          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&q=80" alt="Michael" className="w-full h-full object-cover object-top" />
+          <img src="images/personal/portfolio.jpeg" alt="Michael" className="w-full h-full object-cover object-top" />
         </div>
       </motion.div>
 
@@ -187,7 +195,7 @@ export default function HeroSection() {
           />
           <StatCard
             heading="90+"
-            subtext="Lighthouse score"
+            subtext="SEO score"
             detailBody="Optimized for performance, accessibility, and SEO — consistently achieving a 90+ Lighthouse score across key metrics."
             isOpen={openCard === 'lighthouse'}
             onToggle={() => setOpenCard((prev) => (prev === 'lighthouse' ? null : 'lighthouse'))}
@@ -200,6 +208,7 @@ export default function HeroSection() {
             isOpen={openCard === 'apis'}
             onToggle={() => setOpenCard((prev) => (prev === 'apis' ? null : 'apis'))}
             delay={1.0}
+            floatDetail
           />
         </motion.div>
       </div>

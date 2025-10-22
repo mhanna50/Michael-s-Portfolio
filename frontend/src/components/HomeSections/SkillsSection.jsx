@@ -39,12 +39,19 @@ export default function SkillsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
-          className="mb-16"
+          className="mb-16 space-y-6"
         >
-          <h2 className="text-5xl md:text-6xl font-light text-[#2C2C2C] mb-4 tracking-tight">
+          <span className="font-accent uppercase tracking-[0.35em] text-lg text-primary-dark/70">
+            Technical Focus
+          </span>
+          <h2 className="max-w-3xl font-serifalt text-5xl md:text-6xl text-black leading-tight">
             Skills & Technologies
           </h2>
-          <div className="h-1 w-16 bg-[#A8B8A0] mb-6 rounded-full" />
+          <div className="h-1 w-20 rounded-full bg-[#A8B8A0]" />
+          <p className="max-w-3xl font-serifalt text-lg text-neutral-dark/80">
+            A cross-disciplinary toolkit that spans coding, automation, and design enables me to ship
+            polished experiences while keeping performance, accessibility, and quality in check.
+          </p>
         </motion.div>
 
         <div className="space-y-12">
