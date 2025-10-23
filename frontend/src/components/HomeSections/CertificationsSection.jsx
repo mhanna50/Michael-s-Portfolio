@@ -47,19 +47,19 @@ const skillHighlights = [
     key: "frameworks",
     label: "FRAMEWORKS",
     title: "Frameworks & Libraries",
-    items: ["React", "Node.js", "Next.js", "SwiftUI", "Django", "Express"],
+    items: ["React", "Node.js", "Next.js", "SwiftUI", "Django", "Vite", "Tailwind CSS", "Framer Motion"],
   },
   {
     key: "tools",
     label: "TOOLS",
     title: "Tools & Platforms",
-    items: ["Git", "Docker", "AWS", "Figma", "Jest", "Selenium"],
+    items: ["WordPress", "Git", "Docker", "AWS", "Figma", "API Integrations", "Supabase", "PostgreSQL"],
   },
   {
     key: "Soft Skills",
     label: "CAPABILITIES",
-    title: "Other Skills",
-    items: ["RESTful APIs", "GraphQL", "CI/CD", "Agile/Scrum", "Test Automation", "UI/UX Design"],
+    title: "Soft Skills & Other",
+    items: ["RESTful APIs", "CI/CD", "Agile/Scrum", "Test Automation", "UI/UX Design", "Collaboration", "Detail-Oriented"],
   },
 ];
 

@@ -103,9 +103,12 @@ export default function AboutSection() {
                   wins, and lessons learned.
                 </p>
                 <div className="mt-6">
-                  <Button className="rounded-full bg-neutral px-7 py-2 text-base font-accent uppercase tracking-[0.2em] text-white hover:bg-primary transition-colors">
-                    Read the Blog
-                  </Button>
+                  <a href="/blog">
+                    <Button className="rounded-full bg-neutral px-7 py-2 text-base font-accent uppercase tracking-[0.2em] text-white hover:bg-primary transition-colors">
+                      Read the Blog
+                    </Button>
+                  </a>
+
                 </div>
               </motion.section>
             </div>
