@@ -227,9 +227,11 @@ function FeaturedProjectCard({ project, index, palette }) {
       variants={fadeInUp}
       initial="hidden"
       whileInView="visible"
+      whileHover={{ y: -12, scale: 1.01 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
       viewport={{ once: true, amount: 0.3 }}
       custom={index}
-      className={`relative overflow-hidden rounded-3xl border shadow-xl backdrop-blur-sm ${cardFallbackClass}`}
+      className={`relative overflow-hidden rounded-3xl border shadow-xl backdrop-blur-sm transition-transform transform-gpu duration-500 ease-out ${cardFallbackClass}`}
       style={Object.keys(featurePalette).length ? withTransition({
         background: featurePalette.bg,
         borderColor: featurePalette.border,

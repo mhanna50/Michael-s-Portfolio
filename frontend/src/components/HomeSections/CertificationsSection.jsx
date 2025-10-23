@@ -272,12 +272,14 @@ export default function CertificationsSection({ theme }) {
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {sampleCertifications.map((cert) => (
-                <a
+                <motion.a
                   key={cert.title}
                   href={cert.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-2xl border px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  whileHover={{ y: -12, scale: 1.01 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  className="group flex items-center gap-4 rounded-2xl border px-5 py-4 shadow-sm transition-transform transform-gpu duration-500 ease-out"
                   style={cardAltStyle}
                 >
                   <div
@@ -314,7 +316,7 @@ export default function CertificationsSection({ theme }) {
                     className={`ml-auto h-4 w-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${externalIconFallbackClass}`}
                     style={accentStyle}
                   />
-                </a>
+                </motion.a>
               ))}
             </div>
           </motion.section>
@@ -345,9 +347,11 @@ export default function CertificationsSection({ theme }) {
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {skillHighlights.map((skillGroup) => (
-                <div
+                <motion.div
                   key={skillGroup.key}
-                  className="group relative overflow-hidden rounded-2xl border px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  whileHover={{ y: -12, scale: 1.01 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  className="group relative overflow-hidden rounded-2xl border px-6 py-5 shadow-sm transition-transform transform-gpu duration-500 ease-out"
                   style={skillCardStyle}
                 >
                   <div className="flex items-center justify-between gap-3">
@@ -381,7 +385,7 @@ export default function CertificationsSection({ theme }) {
                       </span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.section>
