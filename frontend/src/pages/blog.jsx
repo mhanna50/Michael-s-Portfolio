@@ -2,6 +2,7 @@ import React from "react";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import BlogList from "../components/BlogTools/BlogList";
+import Footer from "../components/Footer";
 import { getAllPosts } from "../utils/loadposts";
 import { formatReadableDate } from "../utils/formatDate";
 
@@ -47,7 +48,8 @@ export default function Blog() {
   const featuredPost = posts[0];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-neutral-light via-secondary-light/40 to-primary-light/60 text-neutral">
+    <>
+      <main className="min-h-screen bg-gradient-to-br from-neutral-light via-secondary-light/40 to-primary-light/60 text-neutral">
       <section className="relative overflow-hidden px-6 pt-10 pb-12 md:pt-12 md:pb-16">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.75),_transparent_55%)]" />
         <motion.div
@@ -179,6 +181,8 @@ export default function Blog() {
           <BlogList posts={posts} />
         </div>
       </motion.section>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

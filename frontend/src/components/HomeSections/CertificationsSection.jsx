@@ -8,7 +8,7 @@ const educationHighlight = {
   graduation: "Class of 2025",
   focusAreas: [
     "Software development fundamentals",
-    "Human-centered design",
+    "Clean-Intuative design",
     "Quality assurance",
   ],
   description:
@@ -56,7 +56,7 @@ const skillHighlights = [
     items: ["Git", "Docker", "AWS", "Figma", "Jest", "Selenium"],
   },
   {
-    key: "other",
+    key: "Soft Skills",
     label: "CAPABILITIES",
     title: "Other Skills",
     items: ["RESTful APIs", "GraphQL", "CI/CD", "Agile/Scrum", "Test Automation", "UI/UX Design"],
@@ -65,7 +65,10 @@ const skillHighlights = [
 
 export default function CertificationsSection() {
   return (
-    <section className="py-32 px-6 bg-white">
+    <section
+      id="credentials"
+      className="py-32 px-6 bg-accent-light"
+    >
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -155,16 +158,12 @@ export default function CertificationsSection() {
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {sampleCertifications.map((cert, index) => (
-                <motion.a
+              {sampleCertifications.map((cert) => (
+                <a
                   key={cert.title}
                   href={cert.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
                   className="group flex items-center gap-4 rounded-2xl border border-[#E0E7DF] bg-white/80 px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#A8B8A0] hover:shadow-md"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F3F5F2] transition-colors duration-300 group-hover:bg-[#A8B8A0]">
@@ -182,7 +181,7 @@ export default function CertificationsSection() {
                     </span>
                   </div>
                   <ExternalLink className="ml-auto h-4 w-4 text-[#9BA79D] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </motion.a>
+                </a>
               ))}
             </div>
           </motion.section>
@@ -206,13 +205,9 @@ export default function CertificationsSection() {
               </p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {skillHighlights.map((skillGroup, index) => (
-                <motion.div
+              {skillHighlights.map((skillGroup) => (
+                <div
                   key={skillGroup.key}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
                   className="group relative overflow-hidden rounded-2xl border border-[#E8DCC4] bg-white/85 px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#C97064]/60 hover:shadow-md"
                 >
                   <div className="flex items-center justify-between gap-3">
@@ -236,7 +231,7 @@ export default function CertificationsSection() {
                       </span>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </motion.section>

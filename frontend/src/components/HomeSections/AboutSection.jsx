@@ -20,7 +20,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-gradient-to-br from-neutral-light via-secondary-light/40 to-primary-light/60 py-28 px-6"
+      className="relative overflow-hidden bg-accent-light py-28 px-6"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.6),_transparent_60%)] pointer-events-none" />
 

@@ -4,7 +4,8 @@ import AboutSection from '../components/HomeSections/AboutSection';
 import PortfolioSection from '../components/HomeSections/PortfolioSection';
 import CertificationsSection from '../components/HomeSections/CertificationsSection';
 import SkillsSection from '../components/HomeSections/SkillsSection';
-import ContactSection from '../components/HomeSections/ContactSection';
+import ContactSection from '../components/HomeSections/Offer';
+import Footer from '../components/Footer';
 
 export default function Home() {
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function Home() {
       <CertificationsSection />
       
       <ContactSection />
+      <Footer />
     </div>
   );
 }

@@ -306,7 +306,10 @@ export default function PortfolioSection() {
   const activeProjects = activeTabConfig ? projectCollections[activeTabConfig.value] : [];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-neutral-light via-secondary-light/60 to-primary-light/40 py-28 px-6">
+    <section
+      id="portfolio"
+      className="relative overflow-hidden bg-gradient-to-br from-neutral-light via-secondary-light/60 to-primary-light/40 py-28 px-6"
+    >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.6),_transparent_60%)]" />
 
       <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-16">

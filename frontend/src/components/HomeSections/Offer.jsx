@@ -1,11 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, Download, Github } from 'lucide-react';
+import { Mail, Linkedin, Github, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function ContactSection() {
   return (
-    <section className="py-32 px-6 bg-gradient-to-br from-[#A8B8A0] via-[#D4A5A5] to-[#C97064]">
+    <section
+      id="contact"
+      className="py-32 px-6 bg-gradient-to-br from-[#A8B8A0] via-[#D4A5A5] to-[#C97064]"
+    >
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -83,16 +86,6 @@ export default function ContactSection() {
           </div>
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="max-w-4xl mx-auto mt-20 pt-12 border-t border-white/20 text-center text-white/80 text-sm"
-      >
-        <p>© 2025 Michael Hanna. Designed and built with care.</p>
-      </motion.div>
     </section>
   );
 }

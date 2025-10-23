@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const detailVariants = {
@@ -25,11 +25,8 @@ const StatCard = ({ heading, subtext, detailBody, delay, isOpen, onToggle, float
       onClick={onToggle}
       className="relative w-full text-right group pb-2"
     >
-      <div className="flex items-end justify-end gap-3">
-        <ChevronDown
-          className={`w-4 h-4 text-primary-dark transition-transform duration-300 mb-1 -mr-2 ${isOpen ? 'rotate-180' : ''}`}
-        />
-        <div className="space-y-1">
+      <div className="flex items-end justify-end">
+        <div className="space-y-1 text-right">
           <p className="font-accent uppercase text-5xl text-black">{heading}</p>
           <p className="font-serifalt text-lg text-neutral-dark">{subtext}</p>
         </div>
@@ -68,8 +65,8 @@ const ResultCard = ({ heading, subtext, delay, showDivider = false }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: delay }}
-    className={`flex h-full w-full flex-col items-start justify-end ${showDivider
-        ? 'border-t border-primary-dark/40 pt-4 md:border-t-0 md:pt-0 md:border-l md:border-primary-dark/40 md:pl-5 max-w-[1200px]'
+    className={`flex h-full w-full flex-col items-start justify-end md:px-5 ${showDivider
+        ? 'border-t border-primary-dark/40 pt-4 md:border-t-0 md:pt-0'
         : ''
       }`}
   >
@@ -88,14 +85,7 @@ export default function HeroSection() {
 
 
 
-      <nav className="absolute top-6 left-1/2 -translate-x-1/2 w-full max-w-[1200px] z-30 flex items-center justify-end">
-        <a
-          href="/blog"
-          className="font-accent uppercase tracking-[0.35em] text-xs sm:text-4xl text-black/70 hover:text-black transition-colors duration-200"
-        >
-          Blog
-        </a>
-      </nav>
+      
       {/* Centered, Overlapping Image */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -105,7 +95,7 @@ export default function HeroSection() {
       >
         <div className="w-[600px] h-[750px] rounded-b-[30rem] overflow-hidden shadow-2xl group">
           <img
-            src="images/personal/portfolio.jpeg"
+            src="/images/personal/portfolio.jpeg"
             alt="Michael"
             className="w-full h-full object-cover object-top scale-105 "
           />
@@ -178,16 +168,16 @@ export default function HeroSection() {
           className="flex-col gap-6 items-end hidden lg:flex mt-14 lg:translate-x-[5px]"
         >
           <StatCard
-            heading="100%"
-            subtext="React + Tailwind"
+            heading="10+"
+            subtext="Websites Built"
             detailBody="Built entirely with React components and styled using Tailwind CSS for a modern, responsive interface and clean developer workflow."
             isOpen={openCard === 'build'}
             onToggle={() => setOpenCard((prev) => (prev === 'build' ? null : 'build'))}
             delay={0.4}
           />
           <StatCard
-            heading="24/7"
-            subtext="Automated backend"
+            heading="3"
+            subtext="Live Websites"
             detailBody="A scheduled cron job automatically summarizes monthly blog content using OpenAI, keeping site highlights fresh and up to date."
             isOpen={openCard === 'backend'}
             onToggle={() => setOpenCard((prev) => (prev === 'backend' ? null : 'backend'))}
@@ -195,15 +185,15 @@ export default function HeroSection() {
           />
           <StatCard
             heading="90+"
-            subtext="SEO score"
+            subtext="SEO score via Lighthouse"
             detailBody="Optimized for performance, accessibility, and SEO — consistently achieving a 90+ Lighthouse score across key metrics."
             isOpen={openCard === 'lighthouse'}
             onToggle={() => setOpenCard((prev) => (prev === 'lighthouse' ? null : 'lighthouse'))}
             delay={0.8}
           />
           <StatCard
-            heading="3"
-            subtext="APIs live"
+            heading="100%"
+            subtext="Mobile Friendly Layouts"
             detailBody="Integrated with OpenAI, a daily quote API, and OpenWeather API to make the site's theme weather dependent."
             isOpen={openCard === 'apis'}
             onToggle={() => setOpenCard((prev) => (prev === 'apis' ? null : 'apis'))}
@@ -221,27 +211,28 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 1.2 }}
           className="px-6 pt-6 pb-0 w-full max-w-[1250px]"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-50 items-end text-left">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-0 items-stretch text-left md:divide-x md:divide-primary-dark/40">
+            
             <ResultCard
-              heading="Design Clarity"
-              subtext="Clean layouts and brand harmony create a polished first impression."
+              heading="Built Using"
+              subtext="React and styled with Tailwind CSS for a modern-clean interface."
               delay={1.3}
             />
             <ResultCard
-              heading="Smooth Journeys"
-              subtext="Intuitive navigation and responsive feel keep visitors engaged."
+              heading="Under the Hood"
+              subtext="This site's color scheme is determined by the weather."
               delay={1.4}
               showDivider
             />
             <ResultCard
-              heading="Tailored Builds"
-              subtext="Websites are crafted around your goals, tone, and audience."
+              heading="AI is Used"
+              subtext="To automatically summarize my blog in the below section."
               delay={1.5}
               showDivider
             />
             <ResultCard
-              heading="Measurable Impact"
-              subtext="Projects deliver higher engagement and stronger conversions."
+              heading="My Skillset"
+              subtext="Ensures you will have a well-performing and discoverable site."
               delay={1.6}
               showDivider
             />
