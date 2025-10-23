@@ -4,8 +4,22 @@ import { getPostBySlug } from "../../utils/loadposts";
 import { formatReadableDate } from "../../utils/formatDate";
 import Footer from "../Footer";
 
-export default function BlogPost({ slug }) {
+export default function BlogPost({ slug, mainTheme, theme }) {
   let post;
+  const activePageTheme = theme?.page ? theme : mainTheme;
+  const activeBlogTheme = theme?.blog ? theme : mainTheme;
+  const pageStyle = activePageTheme?.page
+    ? {
+        background: activePageTheme.page.bg,
+        color: activePageTheme.page.text,
+      }
+    : undefined;
+  const articleStyle = activeBlogTheme?.blog
+    ? {
+        background: activeBlogTheme.blog.bg,
+        color: activeBlogTheme.blog.text,
+      }
+    : undefined;
 
   try {
     post = getPostBySlug(slug);
@@ -13,9 +27,9 @@ export default function BlogPost({ slug }) {
     console.error(error);
     return (
       <>
-        <main className="min-h-[200dvh] bg-gradient-to-br from-neutral-light via-secondary-light/40 to-primary-light/60 px-6 py-24 text-neutral">
-          <div className="mx-auto max-w-3xl rounded-[2.5rem] border border-primary-dark/20 bg-white/80 p-12 text-center shadow-2xl backdrop-blur-sm">
-            <h1 className="font-serifalt text-3xl text-neutral">Post unavailable.</h1>
+        <main className="min-h-[200dvh] px-6 py-24" style={pageStyle}>
+          <div className="mx-auto max-w-3xl rounded-[2.5rem] border border-primary-dark/20 bg-white/80 p-12 text-center shadow-2xl backdrop-blur-sm" style={articleStyle}>
+            <h1 className="font-serifalt text-3xl">Post unavailable.</h1>
             <p className="mt-6 font-serifalt text-base text-neutral/70">
               The entry you were looking for has been moved or no longer exists. Please return to the journal
               for the latest updates.
@@ -29,14 +43,14 @@ export default function BlogPost({ slug }) {
             </a>
           </div>
         </main>
-        <Footer />
+        <Footer theme={theme} mainTheme={mainTheme} />
       </>
     );
   }
 
   return (
     <>
-      <main className="min-h-[200dvh] bg-gradient-to-br from-neutral-light via-secondary-light/40 to-primary-light/60 px-6 py-24 text-neutral">
+      <main className="min-h-[200dvh] px-6 py-24" style={pageStyle}>
         <div className="mx-auto flex max-w-4xl flex-col gap-8">
           <div>
             <a
@@ -48,7 +62,10 @@ export default function BlogPost({ slug }) {
             </a>
           </div>
 
-          <article className="rounded-[3rem] border border-primary-dark/20 bg-white/80 p-12 shadow-2xl backdrop-blur-sm">
+          <article
+            className="rounded-[3rem] border border-primary-dark/20 bg-white/80 p-12 shadow-2xl backdrop-blur-sm"
+            style={articleStyle}
+          >
             <header className="space-y-6">
               <p className="font-accent uppercase tracking-[0.35em] text-xs text-secondary-dark/80">
                 {formatReadableDate(post.date)}
@@ -81,7 +98,7 @@ export default function BlogPost({ slug }) {
           </article>
         </div>
       </main>
-      <Footer />
+      <Footer theme={theme} mainTheme={mainTheme} />
     </>
   );
 }

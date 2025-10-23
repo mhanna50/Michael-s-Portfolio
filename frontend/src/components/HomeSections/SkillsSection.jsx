@@ -1,6 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+const THEME_TRANSITION = "background 600ms ease, background-color 600ms ease, color 600ms ease, border-color 600ms ease";
+
+const withTransition = (style) => ({
+  transition: THEME_TRANSITION,
+  ...(style || {}),
+});
+
 const skills = {
   languages: ["JavaScript", "TypeScript", "Python", "Swift", "Java", "HTML/CSS"],
   frameworks: ["React", "Node.js", "Next.js", "SwiftUI", "Django", "Express"],
@@ -8,13 +15,34 @@ const skills = {
   other: ["RESTful APIs", "GraphQL", "CI/CD", "Agile/Scrum", "Test Automation", "UI/UX Design"]
 };
 
-const SkillBadge = ({ skill, index, category }) => {
+const defaultBadgeGradients = {
+  languages: ["#A8B8A0", "#8A9B82"],
+  frameworks: ["#D4A5A5", "#C48B8B"],
+  tools: ["#C97064", "#B86054"],
+  other: ["#E8DCC4", "#D4C8A8"],
+};
+
+const SkillBadge = ({ skill, index, category, badgePalette }) => {
   const colors = {
     languages: "from-[#A8B8A0] to-[#8A9B82]",
     frameworks: "from-[#D4A5A5] to-[#C48B8B]",
     tools: "from-[#C97064] to-[#B86054]",
     other: "from-[#E8DCC4] to-[#D4C8A8]"
   };
+
+  const gradient = badgePalette?.gradient || defaultBadgeGradients[category];
+  const textColor = badgePalette?.text;
+  const borderColor = badgePalette?.border;
+  const gradientStyle = gradient
+    ? withTransition({
+        backgroundImage: `linear-gradient(90deg, ${gradient[0]}, ${gradient[1]})`,
+        color: textColor || '#ffffff',
+        borderColor: borderColor || 'transparent',
+      })
+    : undefined;
+  const baseClasses = gradient
+    ? 'bg-transparent'
+    : `bg-gradient-to-r ${colors[category]} text-white`;
 
   return (
     <motion.div
@@ -23,18 +51,34 @@ const SkillBadge = ({ skill, index, category }) => {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
       whileHover={{ scale: 1.05 }}
-      className={`bg-gradient-to-r ${colors[category]} text-white px-6 py-3 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300`}
+      className={`${baseClasses} px-6 py-3 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition-all duration-300 border border-transparent`}
+      style={gradientStyle}
     >
       {skill}
     </motion.div>
   );
 };
 
-export default function SkillsSection() {
+export default function SkillsSection({ theme }) {
+  const sectionTheme = theme?.sections?.skills;
+  const palette = sectionTheme?.palette || {};
+  const badgePalettes = palette.badges || {};
+  const sectionStyle = sectionTheme
+    ? withTransition({
+        background: sectionTheme.bg,
+        color: sectionTheme.text,
+      })
+    : undefined;
+  const accentStyle = palette.accent ? { color: palette.accent } : undefined;
+  const headingStyle = palette.heading ? { color: palette.heading } : undefined;
+  const mutedStyle = palette.muted ? { color: palette.muted } : undefined;
+  const dividerStyle = palette.divider ? { backgroundColor: palette.divider } : undefined;
+
   return (
     <section
       id="skills"
       className="py-32 px-6 bg-gradient-to-b from-white to-[#FAF8F3]"
+      style={sectionStyle}
     >
       <div className="max-w-6xl mx-auto">
         <motion.div
@@ -44,14 +88,23 @@ export default function SkillsSection() {
           transition={{ duration: 0.8 }}
           className="mb-16 space-y-6"
         >
-          <span className="font-accent uppercase tracking-[0.35em] text-lg text-primary-dark/70">
+          <span
+            className="font-accent uppercase tracking-[0.35em] text-lg text-primary-dark/70"
+            style={accentStyle}
+          >
             Technical Focus
           </span>
-          <h2 className="max-w-3xl font-serifalt text-5xl md:text-6xl text-black leading-tight">
+          <h2
+            className="max-w-3xl font-serifalt text-5xl md:text-6xl text-black leading-tight"
+            style={headingStyle}
+          >
             Skills & Technologies
           </h2>
-          <div className="h-1 w-20 rounded-full bg-[#A8B8A0]" />
-          <p className="max-w-3xl font-serifalt text-lg text-neutral-dark/80">
+          <div className="h-1 w-20 rounded-full bg-[#A8B8A0]" style={dividerStyle} />
+          <p
+            className="max-w-3xl font-serifalt text-lg text-neutral-dark/80"
+            style={mutedStyle}
+          >
             A cross-disciplinary toolkit that spans coding, automation, and design enables me to ship
             polished experiences while keeping performance, accessibility, and quality in check.
           </p>
@@ -59,37 +112,81 @@ export default function SkillsSection() {
 
         <div className="space-y-12">
           <div>
-            <h3 className="text-2xl font-medium text-[#2C2C2C] mb-6">Programming Languages</h3>
+            <h3
+              className="text-2xl font-medium text-[#2C2C2C] mb-6"
+              style={headingStyle}
+            >
+              Programming Languages
+            </h3>
             <div className="flex flex-wrap gap-3">
               {skills.languages.map((skill, idx) => (
-                <SkillBadge key={idx} skill={skill} index={idx} category="languages" />
+                <SkillBadge
+                  key={idx}
+                  skill={skill}
+                  index={idx}
+                  category="languages"
+                  badgePalette={badgePalettes.languages}
+                />
               ))}
             </div>
           </div>
 
           <div>
-            <h3 className="text-2xl font-medium text-[#2C2C2C] mb-6">Frameworks & Libraries</h3>
+            <h3
+              className="text-2xl font-medium text-[#2C2C2C] mb-6"
+              style={headingStyle}
+            >
+              Frameworks & Libraries
+            </h3>
             <div className="flex flex-wrap gap-3">
               {skills.frameworks.map((skill, idx) => (
-                <SkillBadge key={idx} skill={skill} index={idx} category="frameworks" />
+                <SkillBadge
+                  key={idx}
+                  skill={skill}
+                  index={idx}
+                  category="frameworks"
+                  badgePalette={badgePalettes.frameworks}
+                />
               ))}
             </div>
           </div>
 
           <div>
-            <h3 className="text-2xl font-medium text-[#2C2C2C] mb-6">Tools & Platforms</h3>
+            <h3
+              className="text-2xl font-medium text-[#2C2C2C] mb-6"
+              style={headingStyle}
+            >
+              Tools & Platforms
+            </h3>
             <div className="flex flex-wrap gap-3">
               {skills.tools.map((skill, idx) => (
-                <SkillBadge key={idx} skill={skill} index={idx} category="tools" />
+                <SkillBadge
+                  key={idx}
+                  skill={skill}
+                  index={idx}
+                  category="tools"
+                  badgePalette={badgePalettes.tools}
+                />
               ))}
             </div>
           </div>
 
           <div>
-            <h3 className="text-2xl font-medium text-[#2C2C2C] mb-6">Other Skills</h3>
+            <h3
+              className="text-2xl font-medium text-[#2C2C2C] mb-6"
+              style={headingStyle}
+            >
+              Other Skills
+            </h3>
             <div className="flex flex-wrap gap-3">
               {skills.other.map((skill, idx) => (
-                <SkillBadge key={idx} skill={skill} index={idx} category="other" />
+                <SkillBadge
+                  key={idx}
+                  skill={skill}
+                  index={idx}
+                  category="other"
+                  badgePalette={badgePalettes.other}
+                />
               ))}
             </div>
           </div>

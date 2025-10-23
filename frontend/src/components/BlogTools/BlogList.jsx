@@ -3,6 +3,13 @@ import { ArrowUpRight, Check, ChevronsUpDown } from "lucide-react";
 import { getAllPosts } from "../../utils/loadposts";
 import { formatReadableDate, parseDateValue } from "../../utils/formatDate";
 
+const THEME_TRANSITION = "background 600ms ease, background-color 600ms ease, color 600ms ease, border-color 600ms ease";
+
+const withTransition = (style) => ({
+  transition: THEME_TRANSITION,
+  ...(style || {}),
+});
+
 const getDateValue = (value) => {
   const date = parseDateValue(value);
   return date ? date.getTime() : 0;
@@ -21,11 +28,50 @@ const SORT_OPTIONS = [
   },
 ];
 
-export default function BlogList({ posts: incomingPosts }) {
+export default function BlogList({ posts: incomingPosts, palette }) {
   const posts = Array.isArray(incomingPosts) ? incomingPosts : getAllPosts();
   const [selectedSort, setSelectedSort] = useState(SORT_OPTIONS[0]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const cardStyle = palette?.cardBg
+    ? withTransition({
+        background: palette.cardBg,
+        borderColor: palette.cardBorder,
+        color: palette.cardText,
+      })
+    : undefined;
+  const cardMutedStyle = palette?.cardMuted ? { color: palette.cardMuted } : undefined;
+  const dateStyle = palette?.date ? { color: palette.date } : undefined;
+  const buttonStyle = palette?.buttonBg
+    ? withTransition({
+        background: palette.buttonBg,
+        borderColor: palette.buttonBg,
+        color: palette.buttonText,
+      })
+    : undefined;
+  const buttonHoverStyle = palette?.buttonHover
+    ? withTransition({
+        background: palette.buttonHover,
+        borderColor: palette.buttonHover,
+        color: palette.buttonText,
+      })
+    : buttonStyle;
+  const menuStyle = palette?.cardBg
+    ? withTransition({
+        background: palette.cardBg,
+        borderColor: palette.cardBorder,
+        color: palette.cardText,
+      })
+    : undefined;
+  const sortButtonFallbackClass = buttonStyle ? "" : "border-primary-dark/30 bg-white/80 text-primary-dark hover:border-primary hover:bg-primary hover:text-white";
+  const sortMenuFallbackClass = palette ? "" : "border-primary-dark/20 bg-white/95";
+  const sortOptionActiveFallbackClass = palette ? "" : "bg-primary/10 text-primary-dark";
+  const sortOptionFallbackClass = palette ? "" : "text-neutral/80 hover:bg-primary/5";
+  const cardFallbackClass = cardStyle ? "" : "border-primary-dark/15 bg-white/75";
+  const dateFallbackClass = dateStyle ? "" : "text-neutral/60";
+  const titleFallbackClass = cardStyle?.color ? "" : "text-neutral";
+  const excerptFallbackClass = cardMutedStyle ? "" : "text-neutral/70";
+  const linkButtonFallbackClass = buttonStyle ? "" : "border-primary-dark/30 bg-neutral/5 text-primary-dark hover:border-primary hover:bg-primary hover:text-white";
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -72,26 +118,40 @@ export default function BlogList({ posts: incomingPosts }) {
           <button
             type="button"
             onClick={() => setIsMenuOpen((open) => !open)}
-            className="inline-flex items-center gap-2 rounded-full border border-primary-dark/30 bg-white/80 px-5 py-2 font-accent text-xs uppercase tracking-[0.35em] text-primary-dark shadow-sm transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white sm:text-sm"
+            className={`inline-flex items-center gap-2 rounded-full border px-5 py-2 font-accent text-xs uppercase tracking-[0.35em] shadow-sm transition-all duration-300 sm:text-sm ${sortButtonFallbackClass}`}
+            style={buttonStyle}
+            onMouseEnter={(event) => {
+              if (!buttonHoverStyle) return;
+              Object.entries(buttonHoverStyle).forEach(([prop, value]) => {
+                event.currentTarget.style[prop] = value;
+              });
+            }}
+            onMouseLeave={(event) => {
+              if (!buttonStyle) return;
+              Object.entries(buttonStyle).forEach(([prop, value]) => {
+                event.currentTarget.style[prop] = value;
+              });
+            }}
           >
             <span>Sort</span>
             <ChevronsUpDown className="h-4 w-4" />
           </button>
 
           {isMenuOpen && (
-            <div className="absolute right-0 z-20 mt-3 w-56 overflow-hidden rounded-3xl border border-primary-dark/20 bg-white/95 p-1.5 shadow-xl backdrop-blur">
+            <div
+              className={`absolute right-0 z-20 mt-3 w-56 overflow-hidden rounded-3xl border p-1.5 shadow-xl backdrop-blur ${sortMenuFallbackClass}`}
+              style={menuStyle}
+            >
               {SORT_OPTIONS.map((option) => {
                 const isActive = option.id === selectedSort?.id;
+                const optionClass = (isActive ? sortOptionActiveFallbackClass : sortOptionFallbackClass) || "";
                 return (
                   <button
                     key={option.id}
                     type="button"
                     onClick={() => handleSortSelect(option)}
-                    className={`flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left font-serifalt text-sm transition-colors duration-200 ${
-                      isActive
-                        ? "bg-primary/10 text-primary-dark"
-                        : "text-neutral/80 hover:bg-primary/5"
-                    }`}
+                    className={`flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left font-serifalt text-sm transition-colors duration-200 ${optionClass}`}
+                    style={isActive ? buttonStyle : undefined}
                   >
                     <span>{option.label}</span>
                     {isActive && <Check className="h-4 w-4" />}
@@ -107,10 +167,17 @@ export default function BlogList({ posts: incomingPosts }) {
         {sortedPosts.map((post) => (
           <article
             key={post.slug}
-            className="group relative overflow-hidden rounded-[2.25rem] border border-primary-dark/15 bg-white/75 p-9 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+            className={`group relative overflow-hidden rounded-[2.25rem] border p-9 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${cardFallbackClass}`}
+            style={cardStyle}
           >
             <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 via-white/5 to-secondary-light/35" />
+              <div
+                className={`absolute inset-0 ${
+                  cardStyle
+                    ? ""
+                    : "bg-gradient-to-br from-primary-light/20 via-white/5 to-secondary-light/35"
+                }`}
+              />
             </div>
 
             <div className="relative space-y-6">
@@ -125,16 +192,25 @@ export default function BlogList({ posts: incomingPosts }) {
                 </div>
               )}
 
-              <p className="font-accent uppercase tracking-[0.35em] text-base text-primary-dark/70">
+              <p
+                className={`font-accent uppercase tracking-[0.35em] text-base ${dateFallbackClass}`}
+                style={dateStyle}
+              >
                 {formatReadableDate(post.date)}
               </p>
 
               <div className="space-y-3">
-                <h2 className="font-serifalt text-3xl leading-tight text-neutral">
+                <h2
+                  className={`font-serifalt text-3xl leading-tight ${titleFallbackClass}`}
+                  style={cardStyle?.color ? { color: cardStyle.color } : undefined}
+                >
                   {post.title}
                 </h2>
                 {post.excerpt && (
-                  <p className="line-clamp-2 break-words font-serifalt text-base leading-relaxed text-neutral/70">
+                  <p
+                    className={`line-clamp-2 break-words font-serifalt text-base leading-relaxed ${excerptFallbackClass}`}
+                    style={cardMutedStyle}
+                  >
                     {post.excerpt}
                   </p>
                 )}
@@ -142,7 +218,20 @@ export default function BlogList({ posts: incomingPosts }) {
 
               <a
                 href={`/blog/${post.slug}`}
-                className="relative inline-flex items-center gap-3 rounded-full border border-primary-dark/30 bg-neutral/5 px-6 py-2.5 font-accent text-sm uppercase tracking-[0.3em] text-primary-dark transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white"
+                className={`relative inline-flex items-center gap-3 rounded-full border px-6 py-2.5 font-accent text-sm uppercase tracking-[0.3em] transition-all duration-300 ${linkButtonFallbackClass}`}
+                style={buttonStyle}
+                onMouseEnter={(event) => {
+                  if (!buttonHoverStyle) return;
+                  Object.entries(buttonHoverStyle).forEach(([prop, value]) => {
+                    event.currentTarget.style[prop] = value;
+                  });
+                }}
+                onMouseLeave={(event) => {
+                  if (!buttonStyle) return;
+                  Object.entries(buttonStyle).forEach(([prop, value]) => {
+                    event.currentTarget.style[prop] = value;
+                  });
+                }}
               >
                 <span>Read Article</span>
                 <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

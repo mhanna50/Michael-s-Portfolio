@@ -77,11 +77,20 @@ const ResultCard = ({ heading, subtext, delay, showDivider = false }) => (
   </motion.div>
 );
 
-export default function HeroSection() {
+export default function HeroSection({ mainTheme }) {
   const [openCard, setOpenCard] = useState(null);
+  const heroStyle = mainTheme?.hero
+    ? {
+        background: mainTheme.hero.bg,
+        color: mainTheme.hero.text,
+      }
+    : undefined;
 
   return (
-    <section className="relative flex flex-col items-center justify-start bg-gradient-to-br from-neutral-light via-secondary-light to-primary-light min-h-[max(950px,100vh)] px-6 lg:px-12 pt-16 lg:pt-20 pb-10 overflow-visible">
+    <section
+      className="relative flex flex-col items-center justify-start min-h-[max(950px,100vh)] px-6 lg:px-12 pt-16 lg:pt-20 pb-10 overflow-visible"
+      style={heroStyle}
+    >
 
 
 

@@ -33,9 +33,20 @@ const socialLinks = [
   },
 ];
 
-export default function Footer() {
+export default function Footer({ mainTheme, theme }) {
+  const footerTheme = theme?.footer || mainTheme?.footer;
+  const footerStyle = footerTheme
+    ? {
+        background: footerTheme.bg,
+        color: footerTheme.text,
+      }
+    : undefined;
+
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-br from-primary-dark via-[#2C2C2C] to-secondary-dark text-accent-light">
+    <footer
+      className="relative overflow-hidden text-accent-light"
+      style={footerStyle}
+    >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(234,219,200,0.18),_transparent_60%)]" />
         <div className="absolute -bottom-10 -right-20 h-64 w-64 rounded-full bg-primary/30 blur-3xl" />

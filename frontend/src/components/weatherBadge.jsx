@@ -1,0 +1,52 @@
+// src/components/WeatherBadge.jsx
+import React from "react";
+
+const toRgba = (hex, alpha) => {
+  if (!hex || typeof hex !== "string") return undefined;
+  const clean = hex.replace("#", "");
+  if (clean.length !== 6) return undefined;
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+export default function WeatherBadge({ weather, theme }) {
+  const accent = theme?.accent;
+  const badgeStyle = accent
+    ? {
+        color: accent,
+        backgroundColor: toRgba(accent, 0.15),
+      }
+    : undefined;
+
+  if (!weather) {
+    return (
+      <div
+        className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-[rgba(79,70,229,0.12)] text-[#4f46e5]"
+        style={badgeStyle}
+      >
+        <span className="animate-pulse">Fetching weather...</span>
+      </div>
+    );
+  }
+
+  const { city, condition, tempC } = weather;
+
+  return (
+    <div
+      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-[rgba(79,70,229,0.12)] text-[#4f46e5]"
+      style={badgeStyle}
+    >
+      <span className="capitalize">{condition}</span>
+      <span>•</span>
+      <span>{tempC}°C</span>
+      {city && (
+        <>
+          <span>•</span>
+          <span className="font-medium">{city}</span>
+        </>
+      )}
+    </div>
+  );
+}

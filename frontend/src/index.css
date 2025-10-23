@@ -6,6 +6,9 @@
 /* --- Optional global defaults --- */
 :root {
   color-scheme: light;
+  --bg: #ffffff;
+  --fg: #111827;
+  --acc: #4f46e5;
 }
 
 /* Global defaults */
@@ -16,7 +19,9 @@ body {
   line-height: 1.625;
   margin: 0;
   box-sizing: border-box;
+  @apply bg-[var(--bg)] text-[var(--fg)];
 }
+
 
 a {
   color: inherit;
@@ -31,15 +36,17 @@ a {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
 }
-
 .line-clamp-4 {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
+  line-clamp: 4;
   -webkit-line-clamp: 4;
 }
+
 
 .blog-post-body {
   overflow-wrap: anywhere;
@@ -137,4 +144,10 @@ a {
 
 .animate-bounce-slow {
   animation: bounce-slow 2.6s ease-in-out infinite;
+}
+.accent {
+  color: var(--acc);
+}
+.bg-accent {
+  background-color: var(--acc);
 }

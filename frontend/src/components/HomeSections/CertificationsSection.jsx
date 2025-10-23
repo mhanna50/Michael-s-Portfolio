@@ -2,6 +2,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, ExternalLink, GraduationCap } from 'lucide-react';
 
+const THEME_TRANSITION = "background 600ms ease, background-color 600ms ease, color 600ms ease, border-color 600ms ease";
+
+const withTransition = (style) => ({
+  transition: THEME_TRANSITION,
+  ...(style || {}),
+});
+
 const educationHighlight = {
   institution: "West Chester University",
   degree: "B.S. Computer Science",
@@ -63,11 +70,85 @@ const skillHighlights = [
   },
 ];
 
-export default function CertificationsSection() {
+export default function CertificationsSection({ theme }) {
+  const sectionTheme = theme?.sections?.certifications;
+  const palette = sectionTheme?.palette || {};
+  const sectionStyle = sectionTheme
+    ? withTransition({
+        background: sectionTheme.bg,
+        color: sectionTheme.text,
+      })
+    : undefined;
+  const headingStyle = palette.heading ? { color: palette.heading } : undefined;
+  const accentStyle = palette.accent ? { color: palette.accent } : undefined;
+  const mutedStyle = palette.muted ? { color: palette.muted } : undefined;
+  const dividerStyle = palette.divider ? { backgroundColor: palette.divider } : undefined;
+  const cardStyle = palette.card
+    ? withTransition({
+        background: palette.card.bg,
+        borderColor: palette.card.border,
+        color: palette.card.text,
+      })
+    : undefined;
+  const cardMutedStyle = palette.card?.muted ? { color: palette.card.muted } : undefined;
+  const cardAltStyle = palette.cardAlt
+    ? withTransition({
+        background: palette.cardAlt.bg,
+        borderColor: palette.cardAlt.border,
+        color: palette.cardAlt.text,
+      })
+    : cardStyle;
+  const skillDeckPalette = palette.skillDeck || {};
+  const degreeChipStyle = skillDeckPalette.tagBg
+    ? withTransition({
+        backgroundColor: skillDeckPalette.tagBg,
+        color: skillDeckPalette.tagText,
+        borderColor: skillDeckPalette.tagBorder,
+      })
+    : undefined;
+  const focusChipStyle = degreeChipStyle;
+  const skillDeckLabelStyle = skillDeckPalette.labelBg
+    ? withTransition({
+        backgroundColor: skillDeckPalette.labelBg,
+        color: skillDeckPalette.labelText,
+      })
+    : accentStyle;
+  const skillDeckSubLabelStyle = skillDeckPalette.sublabelText
+    ? { color: skillDeckPalette.sublabelText }
+    : mutedStyle;
+  const skillDeckCountStyle = skillDeckPalette.countText
+    ? { color: skillDeckPalette.countText }
+    : mutedStyle;
+  const skillGroupBadgeStyle = skillDeckPalette.groupBadgeBg
+    ? withTransition({
+        backgroundColor: skillDeckPalette.groupBadgeBg,
+        color: skillDeckPalette.groupBadgeText,
+        borderColor: skillDeckPalette.groupBadgeBorder,
+      })
+    : undefined;
+  const skillItemStyle = skillDeckPalette.itemBg
+    ? withTransition({
+        backgroundColor: skillDeckPalette.itemBg,
+        borderColor: skillDeckPalette.itemBorder,
+        color: skillDeckPalette.itemText,
+      })
+    : undefined;
+  const skillCardStyle = cardAltStyle;
+  const sectionFallbackClass = sectionStyle ? '' : 'bg-accent-light';
+  const accentFallbackClass = accentStyle ? '' : 'text-primary-dark/70';
+  const headingFallbackClass = headingStyle ? '' : 'text-black';
+  const dividerFallbackClass = dividerStyle ? '' : 'bg-[#C97064]';
+  const cardFallbackClass = cardStyle ? '' : 'border-[#E8DCC4] bg-gradient-to-r from-[#FFF9F0] via-white to-[#FFF4E4]';
+  const innerDividerFallbackClass = dividerStyle ? '' : 'bg-[#C97064]/40';
+  const certificationIconFallbackClass = palette.cardAlt ? '' : 'bg-[#F3F5F2] transition-colors duration-300 group-hover:bg-[#A8B8A0]';
+  const awardFallbackClass = palette.cardAlt ? '' : 'text-[#6D8575] transition-colors duration-300 group-hover:text-white';
+  const externalIconFallbackClass = palette.cardAlt ? '' : 'text-[#9BA79D]';
+
   return (
     <section
       id="credentials"
-      className="py-32 px-6 bg-accent-light"
+      className={`py-32 px-6 ${sectionFallbackClass}`}
+      style={sectionStyle}
     >
       <div className="max-w-6xl mx-auto">
         <motion.div
@@ -77,14 +158,20 @@ export default function CertificationsSection() {
           transition={{ duration: 0.8 }}
           className="space-y-6"
         >
-          <span className="font-accent uppercase tracking-[0.35em] text-lg text-primary-dark/70">
+          <span
+            className={`font-accent uppercase tracking-[0.35em] text-lg ${accentFallbackClass}`}
+            style={accentStyle}
+          >
             Education & Skillset
           </span>
-          <h2 className="max-w-3xl font-serifalt text-5xl md:text-6xl text-black leading-tight">
+          <h2
+            className={`max-w-3xl font-serifalt text-5xl md:text-6xl leading-tight ${headingFallbackClass}`}
+            style={headingStyle}
+          >
             With a focus on software development, web design,
             and problem-solving.
           </h2>
-          <div className="h-1 w-24 rounded-full bg-[#C97064]" />
+          <div className={`h-1 w-24 rounded-full ${dividerFallbackClass}`} style={dividerStyle} />
           
         </motion.div>
 
@@ -94,34 +181,53 @@ export default function CertificationsSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6 }}
-            className="rounded-[2.5rem] border border-[#E8DCC4] bg-gradient-to-r from-[#FFF9F0] via-white to-[#FFF4E4] p-10 shadow-sm"
+            className={`rounded-[2.5rem] border p-10 shadow-sm ${cardFallbackClass}`}
+            style={cardStyle}
           >
             <div className="mb-6 flex items-center gap-3">
-              <span className="rounded-full bg-[#C97064]/10 px-4 py-1 text-xs font-semibold tracking-[0.3em] text-[#C97064]">
+              <span
+                className="rounded-full px-4 py-1 text-xs font-semibold tracking-[0.3em]"
+                style={accentStyle}
+              >
                 EDUCATION
               </span>
-              <span className="h-1 w-24 rounded-full bg-[#C97064]/40" />
+              <span
+                className={`h-1 w-24 rounded-full ${innerDividerFallbackClass}`}
+                style={dividerStyle}
+              />
             </div>
             <div className="grid gap-8 md:grid-cols-[220px_minmax(0,1fr)] md:items-start">
               <div className="flex items-start gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm">
-                  <GraduationCap className="h-7 w-7 text-[#C97064]" />
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl shadow-sm">
+                  <GraduationCap className="h-7 w-7  " style={accentStyle} />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-2xl font-semibold text-[#2C2C2C]">
+                  <h3
+                    className="text-2xl font-semibold"
+                    style={headingStyle}
+                  >
                     {educationHighlight.institution}
                   </h3>
-                  <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#8B5E4C]">
+                  <p
+                    className="text-sm font-medium uppercase tracking-[0.2em]"
+                    style={accentStyle}
+                  >
                     {educationHighlight.graduation}
                   </p>
                 </div>
               </div>
               <div className="space-y-6">
-                <div className="flex flex-wrap items-center gap-3 text-sm text-[#454545]">
-                  <span className="rounded-full bg-[#C97064]/15 px-3 py-1 text-sm font-medium text-[#C97064]">
+                <div
+                  className="flex flex-wrap items-center gap-3 text-sm"
+                  style={cardMutedStyle}
+                >
+                  <span
+                    className="rounded-full border px-3 py-1 text-sm font-medium"
+                    style={degreeChipStyle}
+                  >
                     {educationHighlight.degree}
                   </span>
-                  <span className="text-[#8B8B8B]">
+                  <span style={mutedStyle}>
                     {educationHighlight.description}
                   </span>
                 </div>
@@ -129,7 +235,8 @@ export default function CertificationsSection() {
                   {educationHighlight.focusAreas.map((focus) => (
                     <li
                       key={focus}
-                      className="inline-flex items-center rounded-xl border border-[#E8DCC4] bg-white/80 px-4 py-3 text-sm font-medium text-[#2C2C2C]"
+                      className="inline-flex items-center rounded-xl border px-4 py-3 text-sm font-medium"
+                      style={focusChipStyle}
                     >
                       {focus}
                     </li>
@@ -148,12 +255,18 @@ export default function CertificationsSection() {
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="rounded-full bg-[#A8B8A0]/15 px-4 py-1 text-xs font-semibold tracking-[0.3em] text-[#4D6B5D]">
+                <span
+                  className="rounded-full px-4 py-1 text-xs font-semibold tracking-[0.3em]"
+                  style={accentStyle}
+                >
                   CERTIFICATIONS
                 </span>
-                <span className="h-1 w-16 rounded-full bg-[#A8B8A0]/50" />
+                <span className="h-1 w-16 rounded-full" style={dividerStyle} />
               </div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#9BA79D]">
+              <p
+                className="text-xs uppercase tracking-[0.3em]"
+                style={mutedStyle}
+              >
                 Verified Skills
               </p>
             </div>
@@ -164,23 +277,43 @@ export default function CertificationsSection() {
                   href={cert.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-2xl border border-[#E0E7DF] bg-white/80 px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#A8B8A0] hover:shadow-md"
+                  className="group flex items-center gap-4 rounded-2xl border px-5 py-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  style={cardAltStyle}
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F3F5F2] transition-colors duration-300 group-hover:bg-[#A8B8A0]">
-                    <Award className="h-5 w-5 text-[#6D8575] transition-colors duration-300 group-hover:text-white" />
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-xl ${certificationIconFallbackClass}`}
+                    style={
+                      accentStyle
+                        ? withTransition({ backgroundColor: 'rgba(67,104,80,0.24)' })
+                        : undefined
+                    }
+                  >
+                    <Award className={`h-5 w-5 ${awardFallbackClass}`} style={accentStyle} />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <p className="text-sm font-semibold text-[#2C2C2C] group-hover:text-[#4D6B5D] transition-colors">
+                    <p
+                      className="text-sm font-semibold transition-colors"
+                      style={headingStyle}
+                    >
                       {cert.title}
                     </p>
-                    <span className="text-xs uppercase tracking-[0.2em] text-[#9BA79D]">
+                    <span
+                      className="text-xs uppercase tracking-[0.2em]"
+                      style={mutedStyle}
+                    >
                       {cert.issuer}
                     </span>
-                    <span className="text-xs font-medium text-[#6D8575]">
+                    <span
+                      className="text-xs font-medium"
+                      style={accentStyle}
+                    >
                       {cert.date}
                     </span>
                   </div>
-                  <ExternalLink className="ml-auto h-4 w-4 text-[#9BA79D] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <ExternalLink
+                    className={`ml-auto h-4 w-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${externalIconFallbackClass}`}
+                    style={accentStyle}
+                  />
                 </a>
               ))}
             </div>
@@ -195,12 +328,18 @@ export default function CertificationsSection() {
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="rounded-full bg-[#F0D5CA]/40 px-4 py-1 text-xs font-semibold tracking-[0.3em] text-[#B86054]">
+                <span
+                  className="rounded-full px-4 py-1 text-xs font-semibold tracking-[0.3em]"
+                  style={skillDeckLabelStyle}
+                >
                   SKILL DECK
                 </span>
-                <span className="h-1 w-20 rounded-full bg-[#F0D5CA]" />
+                <span className="h-1 w-20 rounded-full" style={dividerStyle} />
               </div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#B08E7D]">
+              <p
+                className="text-xs uppercase tracking-[0.3em]"
+                style={skillDeckSubLabelStyle}
+              >
                 Core Toolkit
               </p>
             </div>
@@ -208,24 +347,35 @@ export default function CertificationsSection() {
               {skillHighlights.map((skillGroup) => (
                 <div
                   key={skillGroup.key}
-                  className="group relative overflow-hidden rounded-2xl border border-[#E8DCC4] bg-white/85 px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#C97064]/60 hover:shadow-md"
+                  className="group relative overflow-hidden rounded-2xl border px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                  style={skillCardStyle}
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <span className="rounded-full bg-[#FFF3EC] px-3 py-1 text-[10px] font-semibold tracking-[0.3em] text-[#C97064]">
+                    <span
+                      className="rounded-full border px-3 py-1 text-[10px] font-semibold tracking-[0.3em]"
+                      style={skillGroupBadgeStyle}
+                    >
                       {skillGroup.label}
                     </span>
-                    <span className="text-xs font-medium text-[#C1A694]">
+                    <span
+                      className="text-xs font-medium"
+                      style={skillDeckCountStyle}
+                    >
                       {skillGroup.items.length} items
                     </span>
                   </div>
-                  <h4 className="mt-4 text-lg font-semibold text-[#2C2C2C] group-hover:text-[#C97064] transition-colors">
+                  <h4
+                    className="mt-4 text-lg font-semibold transition-colors"
+                    style={headingStyle}
+                  >
                     {skillGroup.title}
                   </h4>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {skillGroup.items.map((item) => (
                       <span
                         key={item}
-                        className="rounded-full border border-[#E8DCC4] bg-[#FFF9F0] px-3 py-1 text-xs font-medium text-[#5A5149]"
+                        className="rounded-full border px-3 py-1 text-xs font-medium"
+                        style={skillItemStyle}
                       >
                         {item}
                       </span>

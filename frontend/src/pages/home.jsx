@@ -7,7 +7,7 @@ import SkillsSection from '../components/HomeSections/SkillsSection';
 import ContactSection from '../components/HomeSections/Offer';
 import Footer from '../components/Footer';
 
-export default function Home() {
+export default function Home({ weather, theme, mainTheme }) {
   useEffect(() => {
     // Smooth scroll behavior
     document.documentElement.style.scrollBehavior = 'smooth';
@@ -17,15 +17,22 @@ export default function Home() {
     };
   }, []);
 
+  const pageStyle = mainTheme?.page
+    ? {
+        background: mainTheme.page.bg,
+        color: mainTheme.page.text,
+      }
+    : undefined;
+
   return (
-    <div className="min-h-screen bg-[#FAF8F3]">
-      <HeroSection />
-      <AboutSection />
-      <PortfolioSection />
-      <CertificationsSection />
+    <div className="min-h-screen" style={pageStyle}>
+      <HeroSection mainTheme={mainTheme} />
+      <AboutSection weather={weather} theme={theme} />
+      <PortfolioSection theme={theme} />
+      <CertificationsSection theme={theme} />
       
-      <ContactSection />
-      <Footer />
+      <ContactSection theme={theme} />
+      <Footer theme={theme} mainTheme={mainTheme} />
     </div>
   );
 }
