@@ -53,7 +53,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
     ? ""
     : "border-primary-dark/30 bg-neutral/5 text-primary-dark hover:border-primary hover:bg-primary hover:text-white";
   const headingFallbackClass = headingStyle ? "" : "text-neutral";
-  const bodyFallbackClass = bodyStyle ? "" : "text-neutral/80";
+  const bodyFallbackClass = bodyStyle ? "" : "text-white/90";
   const mutedFallbackClass = mutedStyle ? "" : "text-neutral/70";
   const dividerFallbackClass = dividerStyle ? "" : "bg-primary-dark/50";
 

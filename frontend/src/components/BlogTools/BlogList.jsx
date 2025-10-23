@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowUpRight, Check, ChevronsUpDown } from "lucide-react";
 import { getAllPosts } from "../../utils/loadposts";
 import { formatReadableDate, parseDateValue } from "../../utils/formatDate";
@@ -28,19 +29,22 @@ const SORT_OPTIONS = [
   },
 ];
 
-export default function BlogList({ posts: incomingPosts, palette }) {
+export default function BlogList({ posts: incomingPosts, palette, themeColors }) {
   const posts = Array.isArray(incomingPosts) ? incomingPosts : getAllPosts();
   const [selectedSort, setSelectedSort] = useState(SORT_OPTIONS[0]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
-  const cardStyle = palette?.cardBg
+  const cardBackground = themeColors?.cardBg || palette?.cardBg;
+  const cardText = themeColors?.cardText || palette?.cardText;
+  const cardStyle = cardBackground
     ? withTransition({
-        background: palette.cardBg,
-        borderColor: palette.cardBorder,
-        color: palette.cardText,
+        background: cardBackground,
+        borderColor: palette?.cardBorder,
+        color: cardText,
       })
     : undefined;
   const cardMutedStyle = palette?.cardMuted ? { color: palette.cardMuted } : undefined;
+  const excerptStyle = cardMutedStyle || (themeColors?.cardText ? { color: themeColors.cardText } : undefined);
   const dateStyle = palette?.date ? { color: palette.date } : undefined;
   const buttonStyle = palette?.buttonBg
     ? withTransition({
@@ -70,7 +74,7 @@ export default function BlogList({ posts: incomingPosts, palette }) {
   const cardFallbackClass = cardStyle ? "" : "border-primary-dark/15 bg-white/75";
   const dateFallbackClass = dateStyle ? "" : "text-neutral/60";
   const titleFallbackClass = cardStyle?.color ? "" : "text-neutral";
-  const excerptFallbackClass = cardMutedStyle ? "" : "text-neutral/70";
+  const excerptFallbackClass = excerptStyle ? "" : "text-white/85";
   const linkButtonFallbackClass = buttonStyle ? "" : "border-primary-dark/30 bg-neutral/5 text-primary-dark hover:border-primary hover:bg-primary hover:text-white";
 
   useEffect(() => {
@@ -165,20 +169,18 @@ export default function BlogList({ posts: incomingPosts, palette }) {
 
       <div className="grid gap-10 md:grid-cols-2">
         {sortedPosts.map((post) => (
-          <article
+          <motion.article
             key={post.slug}
-            className={`group relative overflow-hidden rounded-[2.25rem] border p-9 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${cardFallbackClass}`}
+            className={`group relative overflow-hidden rounded-[3rem] border p-8 shadow-2xl backdrop-blur-sm transition-transform transform-gpu duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_28px_60px_rgba(0,0,0,0.35)] ${cardFallbackClass}`}
             style={cardStyle}
+            whileHover={{ y: -12, scale: 1.01 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
           >
-            <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <div
-                className={`absolute inset-0 ${
-                  cardStyle
-                    ? ""
-                    : "bg-gradient-to-br from-primary-light/20 via-white/5 to-secondary-light/35"
-                }`}
-              />
-            </div>
+            {!cardStyle && (
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-light/20 via-white/5 to-secondary-light/35" />
+              </div>
+            )}
 
             <div className="relative space-y-6">
               {post.previewImage && (
@@ -209,7 +211,7 @@ export default function BlogList({ posts: incomingPosts, palette }) {
                 {post.excerpt && (
                   <p
                     className={`line-clamp-2 break-words font-serifalt text-base leading-relaxed ${excerptFallbackClass}`}
-                    style={cardMutedStyle}
+                    style={excerptStyle}
                   >
                     {post.excerpt}
                   </p>
@@ -237,7 +239,7 @@ export default function BlogList({ posts: incomingPosts, palette }) {
                 <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </a>
             </div>
-          </article>
+          </motion.article>
         ))}
       </div>
     </div>

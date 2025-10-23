@@ -67,12 +67,10 @@ export default function AboutSection({ weather, theme }) {
       }`}
       style={sectionStyle}
     >
-      <div
-        className="absolute left-6 top-6 sm:left-10 sm:top-10 z-30"
-      >
+      <div className="absolute right-6 top-6 sm:right-10 sm:top-10 z-30">
         <WeatherBadge weather={weather} theme={theme} />
       </div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.6),_transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.25),_transparent_70%)] pointer-events-none" />
 
       <div className="relative mx-auto max-w-6xl">
         <motion.div

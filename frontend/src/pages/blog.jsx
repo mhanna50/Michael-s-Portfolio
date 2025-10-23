@@ -291,7 +291,7 @@ export default function Blog({ theme, mainTheme }) {
         style={listSectionStyle || mainStyle}
       >
         <div className="relative mx-auto max-w-6xl">
-          <BlogList posts={posts} palette={blogPalette} />
+          <BlogList posts={posts} palette={blogPalette} themeColors={blogTheme} />
         </div>
       </motion.section>
       </main>
