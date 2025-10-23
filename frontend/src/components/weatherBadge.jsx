@@ -1,5 +1,15 @@
 // src/components/WeatherBadge.jsx
 import React from "react";
+import {
+  Sun,
+  Cloud,
+  CloudRain,
+  CloudSnow,
+  CloudFog,
+  CloudLightning,
+  CloudDrizzle,
+  Moon,
+} from "lucide-react";
 
 const toRgba = (hex, alpha) => {
   if (!hex || typeof hex !== "string") return undefined;
@@ -9,6 +19,19 @@ const toRgba = (hex, alpha) => {
   const g = parseInt(clean.slice(2, 4), 16);
   const b = parseInt(clean.slice(4, 6), 16);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+const iconForCondition = (conditionRaw) => {
+  if (!conditionRaw) return Cloud;
+  const condition = conditionRaw.toLowerCase();
+  if (condition.includes("storm") || condition.includes("thunder")) return CloudLightning;
+  if (condition.includes("dark") || condition.includes("night")) return Moon;
+  if (condition.includes("rain") || condition.includes("shower")) return CloudRain;
+  if (condition.includes("drizzle")) return CloudDrizzle;
+  if (condition.includes("snow") || condition.includes("sleet")) return CloudSnow;
+  if (condition.includes("fog") || condition.includes("mist") || condition.includes("haze")) return CloudFog;
+  if (condition.includes("clear") || condition.includes("sun")) return Sun;
+  return Cloud;
 };
 
 export default function WeatherBadge({ weather, theme }) {
@@ -32,12 +55,14 @@ export default function WeatherBadge({ weather, theme }) {
   }
 
   const { city, condition, tempC } = weather;
+  const Icon = iconForCondition(condition);
 
   return (
     <div
       className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm bg-[rgba(79,70,229,0.12)] text-[#4f46e5]"
       style={badgeStyle}
     >
+      <Icon className="h-4 w-4" />
       <span className="capitalize">{condition}</span>
       <span>•</span>
       <span>{tempC}°C</span>

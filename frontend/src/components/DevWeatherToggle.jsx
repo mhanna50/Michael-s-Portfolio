@@ -2,7 +2,7 @@ import React from "react";
 
 const OPTIONS = [
   { value: "", label: "Live weather" },
-  { value: "main", label: "Main Theme" },
+  { value: "Dark", label: "Dark Mode" },
   { value: "clear", label: "Sunny / Clear" },
   { value: "clouds", label: "Cloudy" },
   { value: "rain", label: "Rainy" },

@@ -823,7 +823,7 @@ export default function useWeatherTheme() {
   useEffect(() => {
     if (!manualCondition) return;
     const mock = {
-      city: "Preview Mode",
+      city: null,
       condition: manualCondition,
       tempC: 20,
       updatedAt: new Date().toISOString(),
