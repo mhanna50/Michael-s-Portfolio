@@ -5,7 +5,7 @@ const MAIN_THEME = {
   accent: "#F6F8F6",
   text: "#F6F8F6",
   page: {
-    bg: "linear-gradient(180deg, #050505 0%, #101512 55%, #090C0B 100%)",
+    bg: "linear-gradient(180deg, #020202 0%, #060606 55%, #090909 100%)",
     text: "#F6F8F6",
   },
   hero: {
@@ -13,65 +13,65 @@ const MAIN_THEME = {
     text: "#121415",
   },
   footer: {
-    bg: "linear-gradient(135deg, #050806 0%, #101612 100%)",
+    bg: "linear-gradient(135deg, #030303 0%, #080808 100%)",
     text: "#E5F0E8",
   },
   sections: {
     about: {
-      bg: "linear-gradient(135deg, #0B0D0C 0%, #151B17 100%)",
+      bg: "linear-gradient(135deg, #040404 0%, #0C0C0C 100%)",
       text: "#F6F8F6",
       palette: {
         heading: "#F9FBF9",
         accent: "#F6F8F6",
-        muted: "#C8D4CD",
-        divider: "rgba(67, 104, 80, 0.45)",
+        muted: "#D3DDD7",
+        divider: "rgba(67, 104, 80, 0.6)",
         card: {
-          bg: "rgba(17, 24, 20, 0.9)",
-          border: "rgba(67, 104, 80, 0.38)",
+          bg: "rgba(8, 8, 8, 0.92)",
+          border: "rgba(67, 104, 80, 0.5)",
           text: "#F6F8F6",
-          muted: "#CAD6CF",
+          muted: "#D5DFDA",
         },
         cardAlt: {
-          bg: "rgba(21, 29, 24, 0.88)",
-          border: "rgba(67, 104, 80, 0.3)",
+          bg: "rgba(12, 12, 12, 0.9)",
+          border: "rgba(67, 104, 80, 0.42)",
           text: "#F6F8F6",
-          muted: "#BECAC3",
+          muted: "#CBD6D0",
         },
       },
     },
     portfolio: {
-      bg: "linear-gradient(135deg, #090C0B 0%, #141B16 70%, #0B100D 100%)",
+      bg: "linear-gradient(135deg, #030303 0%, #090909 70%, #050505 100%)",
       text: "#F6F8F6",
       palette: {
-        overlay: "radial-gradient(circle at top, rgba(67,104,80,0.18), transparent 62%)",
+        overlay: "radial-gradient(circle at top, rgba(67,104,80,0.14), transparent 65%)",
         heading: "#F9FBF9",
         accent: "#F6F8F6",
-        muted: "#C1CDC6",
-        divider: "rgba(67, 104, 80, 0.5)",
+        muted: "#CED8D2",
+        divider: "rgba(67, 104, 80, 0.58)",
         card: {
-          bg: "rgba(9, 13, 11, 0.94)",
-          border: "rgba(67, 104, 80, 0.42)",
+          bg: "rgba(7, 7, 7, 0.94)",
+          border: "rgba(67, 104, 80, 0.55)",
           text: "#F6F8F6",
-          muted: "#CBD7CF",
+          muted: "#D4DDD8",
         },
         cardAlt: {
-          bg: "rgba(13, 18, 16, 0.9)",
-          border: "rgba(67, 104, 80, 0.35)",
+          bg: "rgba(10, 10, 10, 0.9)",
+          border: "rgba(67, 104, 80, 0.45)",
           text: "#F6F8F6",
-          muted: "#C3D0C8",
+          muted: "#CBD6D0",
         },
         featureCard: {
-          bg: "rgba(12, 17, 15, 0.92)",
-          border: "rgba(67, 104, 80, 0.48)",
+          bg: "rgba(9, 9, 9, 0.92)",
+          border: "rgba(67, 104, 80, 0.56)",
           text: "#F6F8F6",
-          muted: "#D2DCD6",
+          muted: "#DAE3DE",
         },
         projectCard: {
-          bg: "rgba(8, 12, 10, 0.9)",
-          border: "rgba(67, 104, 80, 0.4)",
+          bg: "rgba(6, 6, 6, 0.92)",
+          border: "rgba(67, 104, 80, 0.52)",
           text: "#F6F8F6",
-          muted: "#C5D1CA",
-          mediaBg: "linear-gradient(135deg, rgba(67, 104, 80, 0.45), rgba(18, 24, 20, 0.7))",
+          muted: "#CFD9D3",
+          mediaBg: "linear-gradient(135deg, rgba(67, 104, 80, 0.55), rgba(10, 12, 11, 0.85))",
         },
         button: {
           bg: "#436850",
@@ -79,14 +79,14 @@ const MAIN_THEME = {
           hover: "#2C4739",
         },
         deepDive: {
-          bg: "rgba(10, 14, 12, 0.88)",
-          border: "rgba(67, 104, 80, 0.32)",
+          bg: "rgba(5, 5, 5, 0.9)",
+          border: "rgba(67, 104, 80, 0.4)",
           text: "#F6F8F6",
           accent: "#E6F2EA",
           tabs: {
-            bg: "rgba(14, 20, 17, 0.72)",
-            border: "rgba(67, 104, 80, 0.28)",
-            text: "#D6E6DA",
+            bg: "rgba(8, 8, 8, 0.78)",
+            border: "rgba(67, 104, 80, 0.32)",
+            text: "#DAE6E0",
             activeBg: "#436850",
             activeText: "#F6F8F6",
             activeBorder: "#436850",
@@ -95,66 +95,66 @@ const MAIN_THEME = {
       },
     },
     certifications: {
-      bg: "linear-gradient(135deg, #0C0E0D 0%, #161C17 60%, #0A0E0B 100%)",
+      bg: "linear-gradient(135deg, #040404 0%, #0A0A0A 60%, #050505 100%)",
       text: "#F6F8F6",
       palette: {
         heading: "#F9FBF9",
         accent: "#F6F8F6",
-        muted: "#C8D4CD",
-        divider: "rgba(67, 104, 80, 0.45)",
+        muted: "#D1DCD6",
+        divider: "rgba(67, 104, 80, 0.55)",
         card: {
-          bg: "rgba(28, 36, 32, 0.92)",
-          border: "rgba(67, 104, 80, 0.32)",
+          bg: "rgba(11, 11, 11, 0.92)",
+          border: "rgba(67, 104, 80, 0.45)",
           text: "#F6F8F6",
-          muted: "#CEDAD3",
+          muted: "#D8E2DC",
         },
         cardAlt: {
-          bg: "rgba(21, 29, 25, 0.88)",
-          border: "rgba(67, 104, 80, 0.28)",
+          bg: "rgba(9, 9, 9, 0.9)",
+          border: "rgba(67, 104, 80, 0.4)",
           text: "#F6F8F6",
         },
         skillDeck: {
-          labelBg: "rgba(67, 104, 80, 0.26)",
+          labelBg: "rgba(67, 104, 80, 0.32)",
           labelText: "#F6F8F6",
-          sublabelText: "#C4D1C9",
-          countText: "#C4D1C9",
-          groupBadgeBg: "rgba(67, 104, 80, 0.22)",
+          sublabelText: "#CEDAD4",
+          countText: "#CEDAD4",
+          groupBadgeBg: "rgba(67, 104, 80, 0.28)",
           groupBadgeText: "#E6F2EA",
-          groupBadgeBorder: "rgba(67, 104, 80, 0.34)",
-          itemBg: "rgba(19, 26, 22, 0.9)",
-          itemBorder: "rgba(67, 104, 80, 0.36)",
+          groupBadgeBorder: "rgba(67, 104, 80, 0.38)",
+          itemBg: "rgba(8, 8, 8, 0.9)",
+          itemBorder: "rgba(67, 104, 80, 0.4)",
           itemText: "#F6F8F6",
-          tagBg: "rgba(67, 104, 80, 0.24)",
-          tagBorder: "rgba(67, 104, 80, 0.36)",
+          tagBg: "rgba(67, 104, 80, 0.3)",
+          tagBorder: "rgba(67, 104, 80, 0.42)",
           tagText: "#F6F8F6",
         },
       },
     },
     contact: {
-      bg: "linear-gradient(135deg, #080A09 0%, #141A16 100%)",
+      bg: "linear-gradient(135deg, #040404 0%, #090909 100%)",
       text: "#F6F8F6",
       buttonContrast: "#F6F8F6",
     },
   },
   blog: {
-    bg: "#0A0F0D",
+    bg: "linear-gradient(135deg, #050505 0%, #090909 100%)",
     text: "#F6F8F6",
-    cardBg: "rgba(16, 23, 19, 0.9)",
+    cardBg: "rgba(8, 8, 8, 0.9)",
     cardText: "#F6F8F6",
-    listBg: "rgba(12, 18, 16, 0.92)",
+    listBg: "rgba(6, 6, 6, 0.9)",
     palette: {
       nav: "#E6F2EA",
-      navMuted: "#9DB3A6",
+      navMuted: "#A6B9AF",
       heading: "#F9FBF9",
       body: "#E9F3ED",
-      muted: "#C0CEC6",
-      divider: "rgba(67, 104, 80, 0.4)",
-      date: "#C9D9D0",
-      cardBorder: "rgba(67, 104, 80, 0.32)",
+      muted: "#C8D4CD",
+      divider: "rgba(67, 104, 80, 0.5)",
+      date: "#D2DED6",
+      cardBorder: "rgba(67, 104, 80, 0.5)",
       buttonBg: "#436850",
       buttonText: "#F6F8F6",
       buttonHover: "#2C4739",
-      pillBorder: "rgba(67, 104, 80, 0.4)",
+      pillBorder: "rgba(67, 104, 80, 0.5)",
     },
   },
 };
@@ -765,10 +765,69 @@ const THEMES = {
   },
 };
 
-const themeFor = (condition) => {
-  if (!condition) return MAIN_THEME;
+const CONDITION_ALIASES = {
+  thunderstorm: "rain",
+  drizzle: "rain",
+  mist: "rain",
+  smoke: "clouds",
+  haze: "clouds",
+  dust: "clouds",
+  fog: "clouds",
+  sand: "clear",
+  ash: "clear",
+  squall: "clear",
+  tornado: "clear",
+};
+
+const SUBTEXT_KEYS = new Set([
+  "muted",
+  "body",
+  "sublabelText",
+  "countText",
+  "itemText",
+  "tagText",
+  "labelText",
+  "navMuted",
+  "groupBadgeText",
+  "cardText",
+  "listText",
+  "pillText",
+  "description",
+]);
+
+const withHighContrastSubtext = (theme, useLightSubtext = false) => {
+  if (!theme) return theme;
+  const clone = JSON.parse(JSON.stringify(theme));
+  const targetColor = useLightSubtext ? "#FFFFFF" : "#000000";
+
+  const apply = (node) => {
+    if (!node || typeof node !== "object") return;
+    for (const [key, value] of Object.entries(node)) {
+      if (value && typeof value === "object") {
+        apply(value);
+      }
+
+      if (SUBTEXT_KEYS.has(key) && typeof node[key] === "string") {
+        node[key] = targetColor;
+      }
+    }
+  };
+
+  apply(clone);
+  return clone;
+};
+
+const themeFor = (condition, isNight = false) => {
+  if (isNight) return MAIN_THEME;
   const key = (condition || "").toLowerCase();
-  return THEMES[key] || MAIN_THEME;
+  const resolved = CONDITION_ALIASES[key] || key;
+  return THEMES[resolved] || MAIN_THEME;
+};
+
+const buildTheme = (condition, isNight = false) => {
+  const baseTheme = themeFor(condition, isNight);
+  const useLightSubtext = baseTheme === MAIN_THEME;
+  return withHighContrastSubtext(baseTheme, useLightSubtext);
 };
 
 const STORAGE_KEY = "wxData";
@@ -778,7 +837,7 @@ const TTL = 10 * 60 * 1000; // 10 minutes per session
 
 export default function useWeatherTheme() {
   const [weather, setWeather] = useState(null);
-  const [theme, setTheme] = useState(MAIN_THEME);
+  const [theme, setTheme] = useState(() => withHighContrastSubtext(MAIN_THEME, true));
   const [manualCondition, setManualCondition] = useState(() => {
     if (typeof window === "undefined") return null;
     return sessionStorage.getItem(MANUAL_KEY);
@@ -792,7 +851,7 @@ export default function useWeatherTheme() {
       if (cachedRaw) {
         const cached = JSON.parse(cachedRaw);
         setWeather(cached);
-        setTheme(themeFor(cached.condition));
+        setTheme(buildTheme(cached.condition, cached.isNight));
       }
 
       const last = Number(sessionStorage.getItem(TIMESTAMP_KEY) || 0);
@@ -807,7 +866,7 @@ export default function useWeatherTheme() {
           if (!res.ok) throw new Error("weather");
           const data = await res.json();
           setWeather(data);
-          setTheme(themeFor(data.condition));
+          setTheme(buildTheme(data.condition, data.isNight));
 
           sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
           sessionStorage.setItem(TIMESTAMP_KEY, String(Date.now()));
@@ -827,9 +886,11 @@ export default function useWeatherTheme() {
       condition: manualCondition,
       tempC: 20,
       updatedAt: new Date().toISOString(),
+      isNight: false,
+      source: "manual",
     };
     setWeather(mock);
-    setTheme(themeFor(manualCondition));
+    setTheme(buildTheme(manualCondition));
   }, [manualCondition]);
 
   const setManualOverride = (condition) => {
@@ -848,5 +909,11 @@ export default function useWeatherTheme() {
     }
   };
 
-  return { weather, theme, manualCondition, setManualOverride, mainTheme: MAIN_THEME }; // weather: { city, condition, tempC, updatedAt }
+  return {
+    weather,
+    theme,
+    manualCondition,
+    setManualOverride,
+    mainTheme: withHighContrastSubtext(MAIN_THEME, true),
+  }; // weather: { city, condition, tempC, updatedAt }
 }
