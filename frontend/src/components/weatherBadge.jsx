@@ -34,6 +34,17 @@ const iconForCondition = (conditionRaw) => {
   return Cloud;
 };
 
+const labelForCondition = (conditionRaw, isNight = false) => {
+  if (isNight) return "night";
+  if (!conditionRaw) return "unknown";
+  return conditionRaw.toLowerCase();
+};
+
+const toFahrenheit = (celsius) => {
+  if (typeof celsius !== "number" || Number.isNaN(celsius)) return null;
+  return Math.round((celsius * 9) / 5 + 32);
+};
+
 export default function WeatherBadge({ weather, theme }) {
   const accent = theme?.accent;
   const badgeStyle = accent
@@ -54,8 +65,11 @@ export default function WeatherBadge({ weather, theme }) {
     );
   }
 
-  const { city, condition, tempC } = weather;
-  const Icon = iconForCondition(condition);
+  const { city, condition, tempC, isNight, source } = weather;
+  const Icon = iconForCondition(isNight ? "night" : condition);
+  const label = labelForCondition(condition, isNight);
+  const tempF = toFahrenheit(tempC);
+  const showTemperature = source !== "manual";
 
   return (
     <div
@@ -63,9 +77,13 @@ export default function WeatherBadge({ weather, theme }) {
       style={badgeStyle}
     >
       <Icon className="h-4 w-4" />
-      <span className="capitalize">{condition}</span>
-      <span>•</span>
-      <span>{tempC}°C</span>
+      <span className="capitalize">{label}</span>
+      {showTemperature && (
+        <>
+          <span>•</span>
+          <span>{typeof tempF === "number" ? `${tempF}°F` : `${tempC}°C`}</span>
+        </>
+      )}
       {city && (
         <>
           <span>•</span>

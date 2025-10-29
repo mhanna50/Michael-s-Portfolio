@@ -4,7 +4,7 @@ import AboutSection from '../components/HomeSections/AboutSection';
 import PortfolioSection from '../components/HomeSections/PortfolioSection';
 import CertificationsSection from '../components/HomeSections/CertificationsSection';
 import SkillsSection from '../components/HomeSections/SkillsSection';
-import ContactSection from '../components/HomeSections/Offer';
+import OffersSection from '../components/HomeSections/Offer';
 import Footer from '../components/Footer';
 
 export default function Home({ weather, theme, mainTheme }) {
@@ -30,8 +30,7 @@ export default function Home({ weather, theme, mainTheme }) {
       <AboutSection weather={weather} theme={theme} />
       <PortfolioSection theme={theme} />
       <CertificationsSection theme={theme} />
-      
-      <ContactSection theme={theme} />
+      <OffersSection theme={theme} />
       <Footer theme={theme} mainTheme={mainTheme} />
     </div>
   );
